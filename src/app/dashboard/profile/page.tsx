@@ -1,5 +1,28 @@
-function page() {
-  return <div>page</div>;
-}
+import PersonalAuthentication from "@/features/profile/components/PersonalAuthentication";
+import PersonalInfo from "@/features/profile/components/PersonalInfo";
+import ProfileCard from "@/features/profile/components/ProfileCard";
+import ProfileInfo from "@/features/profile/components/ProfileInfo";
+import RecentActivity from "@/features/profile/components/RecentActivity";
+import RequestDeactivation from "@/features/profile/components/RequestDeactivation";
+import Statistics from "@/features/profile/components/Statistics";
 
-export default page;
+export default function Page() {
+  return (
+    <div className="grid grid-cols-12 items-start gap-6">
+      <div className="col-span-4 flex flex-col gap-6">
+        <ProfileCard />
+        <ProfileInfo />
+        <Statistics />
+      </div>
+
+      <div className="col-span-8 flex flex-col gap-6">
+        <PersonalInfo />
+
+        <PersonalAuthentication />
+
+        <RecentActivity />
+        <RequestDeactivation />
+      </div>
+    </div>
+  );
+}

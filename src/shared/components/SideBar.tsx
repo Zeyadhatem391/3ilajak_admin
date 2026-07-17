@@ -12,12 +12,17 @@ export default function SideBar() {
   return (
     <div className="h-full w-68 overflow-y-auto custom-scroll pt-8 pb-20 border-r border-gray-300">
       <div className="flex flex-col gap-8 px-4">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3.5">
           <IconLogo />
+          <div className="flex flex-col gap-0.5">
+            <h1 className="text-xl font-bold tracking-tight text-slate-900">
+              3ilajak
+            </h1>
 
-          <span className="text-md font-semibold text-gray-500">
-            Healthcare Enterprise
-          </span>
+            <span className="text-md font-semibold text-gray-500">
+              Healthcare Enterprise
+            </span>
+          </div>
         </div>
 
         <div className="flex flex-col gap-5">
