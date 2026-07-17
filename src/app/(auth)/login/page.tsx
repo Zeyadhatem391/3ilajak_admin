@@ -42,7 +42,7 @@ function Page() {
                   id="email"
                   type="email"
                   placeholder="dr.smith@3ilajak.com"
-                  className="h-11 pl-10"
+                  className="h-11 pl-10 border-2 border-gray-200 "
                 />
               </div>
             </div>
@@ -70,7 +70,7 @@ function Page() {
                   id="password"
                   type="password"
                   placeholder="Enter your password"
-                  className="h-11 pl-10 pr-10"
+                  className="h-11 pl-10 pr-10 border-2 border-gray-200 "
                 />
 
                 <button
