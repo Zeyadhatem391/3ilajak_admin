@@ -8,18 +8,15 @@ interface Props {
 
 export default function DashbordLayout({ children }: Props) {
   return (
-    <div className="h-screen flex flex-col">
-      <NavBar />
+    <div className="flex h-screen">
+      <SideBar />
 
-      <div className="flex flex-1 overflow-hidden">
-        <div className="hidden lg:block">
-          <SideBar />
-        </div>
+      <div className="flex flex-1 flex-col overflow-hidden">
+        <NavBar />
 
-        <main className="flex-1 overflow-y-auto bg-gray-50 p-4 lg:p-8 ">
+        <main className="flex-1 overflow-y-auto bg-gray-100 p-4 lg:p-8">
           {children}
-
-          <div className="lg:mb-5 mb-15 "></div>
+          <div className="mb-15 lg:mb-5" />
         </main>
       </div>
     </div>
