@@ -1,4 +1,4 @@
-export default function Statistics() {
+export default function StatisticsProfile() {
   return (
     <div className="flex justify-around ">
       <div className="bg-white shadow p-4 flex flex-col gap-2 text-center">
