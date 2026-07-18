@@ -3,7 +3,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import IconLogo from "@/shared/components/atoms/IconLogo";
-import { Eye, Lock, Mail, ShieldHalf } from "lucide-react";
+import { Eye, Lock, Mail, ShieldHalf } from "@/assets/icon/icons";
 
 function Page() {
   return (

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { LogIn, RotateCcw, UserPlus } from "lucide-react";
+import { LogIn, RotateCcw, UserPlus } from "@/assets/icon/icons";
 
 function RecentActivity() {
   return (

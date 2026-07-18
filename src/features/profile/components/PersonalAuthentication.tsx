@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "@/assets/icon/icons";
 
 function PersonalAuthentication() {
   return (

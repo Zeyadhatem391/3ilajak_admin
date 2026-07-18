@@ -1,4 +1,4 @@
-import { Mail, MapPin, Pencil, Phone } from "lucide-react";
+import { Mail, MapPin, Pencil, Phone } from "@/assets/icon/icons";
 
 function ProfileInfo() {
   return (
