@@ -3,20 +3,21 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Eye, Pencil } from "lucide-react";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
-interface Product {
+interface Doctors {
   id: number;
   name: string;
   email: string;
   image: string | StaticImageData;
-  patientId: string;
-  lastVisit: string;
+  specializantion: string;
+  assignedClinic: string;
+  licenseNumber: string;
   status: "active" | "inactive";
 }
 
-export const productColumns: ColumnDef<Product>[] = [
+export const doctorsColumns: ColumnDef<Doctors>[] = [
   {
-    id: "profile",
-    header: "PROFILE",
+    id: "name",
+    header: "DOCTOR NAME",
     cell: ({ row }) => {
       const patient = row.original;
 
@@ -40,28 +41,44 @@ export const productColumns: ColumnDef<Product>[] = [
   },
 
   {
-    accessorKey: "patientId",
-    header: "PATIENT ID",
+    accessorKey: "specializantion",
+    header: "SPECIALIZATION",
     cell: ({ row }) => {
       const patient = row.original;
 
       return (
         <div>
-          <p className="text-gray-700 text-md">#PAT-{patient.patientId}</p>
+          <p className="text-gray-700 text-md">
+            #PAT-{patient.specializantion}
+          </p>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "lastVisit",
-    header: "LAST VISIT",
+    accessorKey: "assignedClinic",
+    header: "ASSIGNED CLINIC",
     cell: ({ row }) => {
       const patient = row.original;
 
       return (
         <div>
-          <p className="text-gray-700 text-md">{patient.lastVisit}</p>
+          <p className="text-gray-700 text-md">{patient.assignedClinic}</p>
+        </div>
+      );
+    },
+  },
+
+  {
+    accessorKey: "licenseNumber",
+    header: "LICENSE NUMBER",
+    cell: ({ row }) => {
+      const patient = row.original;
+
+      return (
+        <div>
+          <p className="text-gray-700 text-md">{patient.licenseNumber}</p>
         </div>
       );
     },
@@ -91,7 +108,6 @@ export const productColumns: ColumnDef<Product>[] = [
     id: "actions",
     header: "ACTIONS",
     cell: ({ row }) => {
-
       return (
         <div className="flex items-center gap-2">
           <button className="rounded-md p-2  ">
@@ -105,14 +121,15 @@ export const productColumns: ColumnDef<Product>[] = [
     },
   },
 ];
-export const products: Product[] = [
+export const doctors: Doctors[] = [
   {
     id: 1,
     name: "Ahmed Ali",
     email: "ahmed.ali@example.com",
     image: profile,
-    patientId: "882913",
-    lastVisit: "2026-07-15",
+    specializantion: "882913",
+    assignedClinic: "clinic",
+    licenseNumber: "2345678",
     status: "active",
   },
   {
@@ -120,8 +137,9 @@ export const products: Product[] = [
     name: "Sara Mohamed",
     email: "sara.m@example.com",
     image: profile,
-    patientId: "1002",
-    lastVisit: "2026-07-12",
+    specializantion: "1002",
+    assignedClinic: "clinic",
+    licenseNumber: "2345678",
     status: "inactive",
   },
   {
@@ -129,8 +147,9 @@ export const products: Product[] = [
     name: "Omar Hassan",
     email: "omar.h@example.com",
     image: profile,
-    patientId: "1003",
-    lastVisit: "2026-07-10",
+    specializantion: "1003",
+    assignedClinic: "clinic",
+    licenseNumber: "2345678",
     status: "active",
   },
   {
@@ -138,8 +157,9 @@ export const products: Product[] = [
     name: "Mona Ibrahim",
     email: "mona.i@example.com",
     image: profile,
-    patientId: "1004",
-    lastVisit: "2026-07-08",
+    specializantion: "1004",
+    assignedClinic: "clinic",
+    licenseNumber: "2345678",
     status: "active",
   },
   {
@@ -147,8 +167,9 @@ export const products: Product[] = [
     name: "Youssef Adel",
     email: "youssef.a@example.com",
     image: profile,
-    patientId: "1005",
-    lastVisit: "2026-07-05",
+    specializantion: "1005",
+    assignedClinic: "clinic",
+    licenseNumber: "2345678",
     status: "inactive",
   },
 ];

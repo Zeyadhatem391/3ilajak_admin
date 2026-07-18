@@ -5,7 +5,7 @@ import DataTablePagination from "@/shared/components/data-table/DataTablePaginat
 
 function TablePatients() {
   return (
-    <div className="">
+    <div >
       <DataTable columns={productColumns} data={products} />
 
       <DataTablePagination page={1} totalPages={10}/>
