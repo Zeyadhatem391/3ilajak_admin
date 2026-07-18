@@ -36,15 +36,7 @@ export const menus = [
         name: "Patients",
         link: "/dashboard/patients",
     },
-];
-
-export const info = [
-    {
-        icon: Clipboard,
-        name: "Medical Content",
-        link: "/dashboard/medical-content",
-    },
-    {
+       {
         icon: ClipboardClock,
         name: "Appointments",
         link: "/dashboard/appointments",
@@ -54,12 +46,9 @@ export const info = [
         name: "Notifications",
         link: "/dashboard/notifications",
     },
-    {
-        icon: ChartNoAxesColumn,
-        name: "Reports",
-        link: "/dashboard/reports",
-    },
 ];
+
+
 
 
 export const settings = [
