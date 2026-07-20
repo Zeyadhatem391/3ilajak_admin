@@ -32,7 +32,7 @@ function AnalysisCard({
       </div>
 
       <div className="flex flex-col justify-center">
-        <p className="font-semibold text-gray-500">{title}</p>
+        <p className="font-semibold text-gray-500 uppercase">{title}</p>
         <span className="text-3xl font-bold">{desc}</span>
       </div>
     </div>
