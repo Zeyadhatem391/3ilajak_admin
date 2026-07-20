@@ -1,7 +1,7 @@
 import { profile } from "@/assets/images/image";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
-import { Eye, Pencil } from "lucide-react";
+import { Eye, Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
 interface Admins {
@@ -9,9 +9,6 @@ interface Admins {
   name: string;
   email: string;
   image: string | StaticImageData;
-  role: string;
-  clinicAssignment: string;
-  lastLogin: string;
   status: "active" | "inactive";
 }
 
@@ -53,8 +50,7 @@ export const adminsColumns: ColumnDef<Admins>[] = [
           />
 
           <div>
-            <p className="font-medium">{patient.name}</p>
-            <p className="text-sm text-gray-700">{patient.email}</p>
+            <p className="font-medium text-lg">{patient.name}</p>
           </div>
         </div>
       );
@@ -62,42 +58,14 @@ export const adminsColumns: ColumnDef<Admins>[] = [
   },
 
   {
-    accessorKey: "role",
-    header: "ROLE",
+    accessorKey: "email",
+    header: "Email",
     cell: ({ row }) => {
       const patient = row.original;
 
       return (
         <div>
-          <p className="text-gray-700 text-md">{patient.role}</p>
-        </div>
-      );
-    },
-  },
-
-  {
-    accessorKey: "clinicAssignment",
-    header: "CLINIC ASSIGNMENT",
-    cell: ({ row }) => {
-      const patient = row.original;
-
-      return (
-        <div>
-          <p className="text-gray-700 text-md">{patient.clinicAssignment}</p>
-        </div>
-      );
-    },
-  },
-
-  {
-    accessorKey: "lastLogin",
-    header: "LAST LOGIN",
-    cell: ({ row }) => {
-      const patient = row.original;
-
-      return (
-        <div>
-          <p className="text-gray-700 text-md">{patient.lastLogin}</p>
+          <p className="text-gray-700 text-lg">{patient.email}</p>
         </div>
       );
     },
@@ -135,6 +103,9 @@ export const adminsColumns: ColumnDef<Admins>[] = [
           <button className="rounded-md p-2  ">
             <Pencil className="h-6 w-6" />
           </button>
+          <button className="rounded-md p-2  text-red-900">
+            <Trash2 className="h-6 w-6" />
+          </button>
         </div>
       );
     },
@@ -146,9 +117,6 @@ export const admins: Admins[] = [
     name: "Ahmed Ali",
     email: "ahmed.ali@example.com",
     image: profile,
-    role: "clinc",
-    clinicAssignment: "Downtown Wellness Center",
-    lastLogin: "Oct 25,2023",
     status: "active",
   },
   {
@@ -156,9 +124,6 @@ export const admins: Admins[] = [
     name: "Sara Mohamed",
     email: "sara.m@example.com",
     image: profile,
-    role: "clinc",
-    clinicAssignment: "Downtown Wellness Center",
-    lastLogin: "Oct 25,2023",
     status: "inactive",
   },
   {
@@ -166,9 +131,6 @@ export const admins: Admins[] = [
     name: "Omar Hassan",
     email: "omar.h@example.com",
     image: profile,
-    role: "clinc",
-    clinicAssignment: "Downtown Wellness Center",
-    lastLogin: "Oct 25,2023",
     status: "active",
   },
   {
@@ -176,9 +138,6 @@ export const admins: Admins[] = [
     name: "Mona Ibrahim",
     email: "mona.i@example.com",
     image: profile,
-    role: "clinc",
-    clinicAssignment: "Downtown Wellness Center",
-    lastLogin: "Oct 25,2023",
     status: "active",
   },
   {
@@ -186,9 +145,6 @@ export const admins: Admins[] = [
     name: "Youssef Adel",
     email: "youssef.a@example.com",
     image: profile,
-    role: "clinc",
-    clinicAssignment: "Downtown Wellness Center",
-    lastLogin: "Oct 25,2023",
     status: "inactive",
   },
 ];

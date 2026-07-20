@@ -16,14 +16,14 @@ function StatisticsPratients() {
         title="NEW THIS MONTH"
         desc="+84"
         icon={UserRoundCheck}
-        color="bg-green-400"
+        color="bg-green-400 text-green-900"
       />
 
       <StatisticsCard
         title="ACTIVE CASES"
         desc="912"
         icon={ChartColumnIncreasing}
-        color="bg-blue-800"
+        color="bg-blue-800 text-white"
       />
     </div>
   );

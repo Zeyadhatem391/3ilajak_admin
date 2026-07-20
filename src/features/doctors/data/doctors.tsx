@@ -1,6 +1,6 @@
 import { profile } from "@/assets/images/image";
 import { ColumnDef } from "@tanstack/react-table";
-import { Eye, Pencil } from "lucide-react";
+import { Eye, Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
 interface Doctors {
@@ -8,9 +8,9 @@ interface Doctors {
   name: string;
   email: string;
   image: string | StaticImageData;
-  specializantion: string;
-  assignedClinic: string;
-  licenseNumber: string;
+  medicalLicense: string;
+  nationalID: string;
+  phone: string;
   status: "active" | "inactive";
 }
 
@@ -41,44 +41,42 @@ export const doctorsColumns: ColumnDef<Doctors>[] = [
   },
 
   {
-    accessorKey: "specializantion",
-    header: "SPECIALIZATION",
+    accessorKey: "medicalLicense",
+    header: "Med. Lic.",
     cell: ({ row }) => {
       const patient = row.original;
 
       return (
         <div>
-          <p className="text-gray-700 text-md">
-            #PAT-{patient.specializantion}
-          </p>
+          <p className="text-gray-700 text-md">#M.L-{patient.medicalLicense}</p>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "assignedClinic",
-    header: "ASSIGNED CLINIC",
+    accessorKey: "nationalID",
+    header: "National ID",
     cell: ({ row }) => {
       const patient = row.original;
 
       return (
         <div>
-          <p className="text-gray-700 text-md">{patient.assignedClinic}</p>
+          <p className="text-gray-700 text-md">{patient.nationalID}</p>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "licenseNumber",
-    header: "LICENSE NUMBER",
+    accessorKey: "phone",
+    header: "phone",
     cell: ({ row }) => {
       const patient = row.original;
 
       return (
         <div>
-          <p className="text-gray-700 text-md">{patient.licenseNumber}</p>
+          <p className="text-gray-700 text-md">{patient.phone}</p>
         </div>
       );
     },
@@ -116,6 +114,9 @@ export const doctorsColumns: ColumnDef<Doctors>[] = [
           <button className="rounded-md p-2  ">
             <Pencil className="h-6 w-6" />
           </button>
+          <button className="rounded-md p-2  text-red-900">
+            <Trash2 className="h-6 w-6" />
+          </button>
         </div>
       );
     },
@@ -127,9 +128,9 @@ export const doctors: Doctors[] = [
     name: "Ahmed Ali",
     email: "ahmed.ali@example.com",
     image: profile,
-    specializantion: "882913",
-    assignedClinic: "clinic",
-    licenseNumber: "2345678",
+    medicalLicense: "882913",
+    nationalID: "3051115123557",
+    phone: "2345678",
     status: "active",
   },
   {
@@ -137,9 +138,9 @@ export const doctors: Doctors[] = [
     name: "Sara Mohamed",
     email: "sara.m@example.com",
     image: profile,
-    specializantion: "1002",
-    assignedClinic: "clinic",
-    licenseNumber: "2345678",
+    medicalLicense: "1002",
+    nationalID: "3051115123557",
+    phone: "2345678",
     status: "inactive",
   },
   {
@@ -147,9 +148,9 @@ export const doctors: Doctors[] = [
     name: "Omar Hassan",
     email: "omar.h@example.com",
     image: profile,
-    specializantion: "1003",
-    assignedClinic: "clinic",
-    licenseNumber: "2345678",
+    medicalLicense: "1003",
+    nationalID: "3051115123557",
+    phone: "2345678",
     status: "active",
   },
   {
@@ -157,9 +158,9 @@ export const doctors: Doctors[] = [
     name: "Mona Ibrahim",
     email: "mona.i@example.com",
     image: profile,
-    specializantion: "1004",
-    assignedClinic: "clinic",
-    licenseNumber: "2345678",
+    medicalLicense: "1004",
+    nationalID: "3051115123557",
+    phone: "2345678",
     status: "active",
   },
   {
@@ -167,9 +168,9 @@ export const doctors: Doctors[] = [
     name: "Youssef Adel",
     email: "youssef.a@example.com",
     image: profile,
-    specializantion: "1005",
-    assignedClinic: "clinic",
-    licenseNumber: "2345678",
+    medicalLicense: "1005",
+    nationalID: "3051115123557",
+    phone: "2345678",
     status: "inactive",
   },
 ];
