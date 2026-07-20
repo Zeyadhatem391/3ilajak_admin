@@ -38,7 +38,7 @@ export default function DataTable<TData>({
         {table.getHeaderGroups().map((headerGroup) => (
           <TableRow key={headerGroup.id} className="border border-gray-300">
             {headerGroup.headers.map((header) => (
-              <TableHead key={header.id} className="px-6 py-5 font-semibold">
+              <TableHead key={header.id} className="px-6 py-5 font-semibold text-lg uppercase">
                 {header.isPlaceholder
                   ? null
                   : flexRender(
