@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import AnalysisClinicAdmins from "@/features/clinic-admins/components/AnalysisClinicAdmins";
+import TableClinicAdmins from "@/features/clinic-admins/components/TableClinicAdmins";
 import TitlePage from "@/shared/components/atoms/TitlePage";
 import { CirclePlus } from "lucide-react";
 
@@ -12,11 +14,13 @@ function page() {
         />
         <Button className="flex gap-1 bg-blue-800 text-white px-6 py-5 items-center ">
           <CirclePlus className="w-5 h-5" />
-          <span className="text-lg font-semibold"> Create Doctors</span>
+          <span className="text-lg font-semibold"> Create Clinic Admin</span>
         </Button>
       </div>
 
-      
+      <AnalysisClinicAdmins />
+
+      <TableClinicAdmins />
     </div>
   );
 }
