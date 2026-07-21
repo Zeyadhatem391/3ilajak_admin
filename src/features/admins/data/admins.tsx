@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
+import Link from "next/link";
 interface Admins {
   id: number;
   name: string;
@@ -95,14 +96,14 @@ export const adminsColumns: ColumnDef<Admins>[] = [
     id: "actions",
     header: "ACTIONS",
     cell: ({ row }) => {
+      const admins = row.original;
       return (
         <div className="flex items-center gap-2">
-          <button className="rounded-md p-2  ">
-            <Eye className="h-6 w-6 text-blue-900" />
-          </button>
-          <button className="rounded-md p-2  ">
-            <Pencil className="h-6 w-6" />
-          </button>
+          <Link href={`/dashboard/admins/${admins.id}/update`}>
+            <button className="rounded-md p-2  ">
+              <Pencil className="h-6 w-6" />
+            </button>
+          </Link>
           <button className="rounded-md p-2  text-red-900">
             <Trash2 className="h-6 w-6" />
           </button>
