@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { IdCardLanyard, Mail, User } from "lucide-react";
+import { IdCardLanyard, Mail, Phone, User } from "lucide-react";
 
 function CommunicationDoctor() {
   return (
@@ -19,7 +19,7 @@ function CommunicationDoctor() {
               </Label>
 
               <div className="relative bg-gray-100 ">
-                <User
+                <Phone
                   size={18}
                   className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
                 />
@@ -34,7 +34,7 @@ function CommunicationDoctor() {
             </div>
 
             <div className="w-full">
-              <Label htmlFor="email" className="mb-2">
+              <Label htmlFor="email_com" className="mb-2">
                 EMAIL ADDRESS
               </Label>
 
@@ -45,7 +45,7 @@ function CommunicationDoctor() {
                 />
 
                 <Input
-                  id="email"
+                  id="email_com"
                   type="email"
                   placeholder="dr.smith@3ilajak.com"
                   className="h-11 pl-10 border-2 border-gray-200 "

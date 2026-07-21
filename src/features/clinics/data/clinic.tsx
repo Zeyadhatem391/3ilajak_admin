@@ -3,6 +3,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 interface Clinics {
   id: number;
   name: string;
@@ -31,17 +32,23 @@ export const clinicsColumns: ColumnDef<Clinics>[] = [
     enableHiding: false,
   },
   {
+    id: "id",
+    header: "ID",
+    cell: ({ row }) => {
+      const clinic = row.original;
+
+      return (
+        <div className="bg-blue-100 pl-3 py-1 rounded-lg">#CL-{clinic.id}</div>
+      );
+    },
+  },
+  {
     id: "name",
     header: "Clinic Name",
     cell: ({ row }) => {
       const patient = row.original;
 
-      return (
-        <div className="flex flex-col ">
-          <p className="font-semibold text-lg">{patient.name}</p>
-          <p className="text-gray-500">ID: CL-{patient.id}</p>
-        </div>
-      );
+      return <p className="font-semibold text-lg">{patient.name}</p>;
     },
   },
 
@@ -73,15 +80,18 @@ export const clinicsColumns: ColumnDef<Clinics>[] = [
     id: "actions",
     header: "ACTIONS",
     cell: ({ row }) => {
+      const clinic = row.original;
       return (
-        <div className="flex items-center gap-2">
-          <button className="rounded-md p-2  ">
-            <Eye className="h-6 w-6 text-blue-900" />
+        <div className="flex items-center gap-2.5">
+          <button className="rounded-md cursor-pointer  text-blue-800">
+            <Eye className="h-6 w-6" />
           </button>
-          <button className="rounded-md p-2  ">
-            <Pencil className="h-6 w-6" />
-          </button>
-          <button className="rounded-md p-2  text-red-900">
+          <Link href={`/dashboard/clinics/${clinic.id}/update`}>
+            <button className="rounded-md cursor-pointer">
+              <Pencil className="h-6 w-6" />
+            </button>
+          </Link>
+          <button className="rounded-md cursor-pointer  text-red-900">
             <Trash2 className="h-6 w-6" />
           </button>
         </div>
