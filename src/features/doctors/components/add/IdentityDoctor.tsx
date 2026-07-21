@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { IdCard, Mail, User } from "lucide-react";
+import { IdCard, IdCardIcon, IdCardLanyard, Mail, Rainbow, User } from "lucide-react";
 
 function IdentityDoctor() {
   return (
@@ -13,7 +13,7 @@ function IdentityDoctor() {
         <form className="space-y-8">
           <div className="flex gap-4 justify-between">
             <div className="w-full">
-              <Label htmlFor="email" className="mb-2">
+              <Label htmlFor="name" className="mb-2">
                 Full Name
               </Label>
 
@@ -38,7 +38,7 @@ function IdentityDoctor() {
               </Label>
 
               <div className="relative bg-gray-100 ">
-                <Mail
+                <Rainbow
                   size={18}
                   className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
                 />
@@ -60,7 +60,7 @@ function IdentityDoctor() {
               </Label>
 
               <div className="relative bg-gray-100 ">
-                <User
+                <IdCardIcon
                   size={18}
                   className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
                 />
@@ -80,7 +80,7 @@ function IdentityDoctor() {
               </Label>
 
               <div className="relative bg-gray-100 ">
-                <Mail
+                <IdCardLanyard
                   size={18}
                   className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
                 />
