@@ -1,6 +1,6 @@
 import PermissionAdmins from "@/features/admins/components/add/PermissionAdmins";
 import Breadcrumb from "@/shared/components/atoms/Breadcrumb";
-import SystemAdmins from "./SystemAdmins";
+import SystemAdmins from "../../../../features/admins/components/add/SystemAdmins";
 import FormAdmins from "@/features/admins/components/FormAdmins";
 
 function page() {

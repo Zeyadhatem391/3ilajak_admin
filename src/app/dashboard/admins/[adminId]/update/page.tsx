@@ -1,6 +1,6 @@
 import PermissionAdmins from "@/features/admins/components/add/PermissionAdmins";
 import FormAdmins from "@/features/admins/components/FormAdmins";
-import SystemAdmins from "../../add/SystemAdmins";
+import SystemAdmins from "../../../../../features/admins/components/add/SystemAdmins";
 
 interface PageProps {
   params: Promise<{

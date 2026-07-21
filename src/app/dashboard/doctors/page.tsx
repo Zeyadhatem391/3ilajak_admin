@@ -3,6 +3,7 @@ import StatisticsDoctors from "@/features/doctors/components/StatisticsDoctors";
 import TableDoctors from "@/features/doctors/components/TableDoctors";
 import TitlePage from "@/shared/components/atoms/TitlePage";
 import { CirclePlus } from "lucide-react";
+import Link from "next/link";
 
 function page() {
   return (
@@ -12,10 +13,12 @@ function page() {
           title="Doctor Management"
           decs="Manage medical professionals across the 3ilajak enterprise network."
         />
-        <Button className="flex gap-1 bg-blue-800 text-white px-6 py-5 items-center ">
-          <CirclePlus className="w-5 h-5" />
-          <span className="text-lg font-semibold"> Create Doctors</span>
-        </Button>
+        <Link href="/dashboard/doctors/add">
+          <Button className="flex gap-1 bg-blue-800 text-white px-6 py-5 items-center cursor-pointer">
+            <CirclePlus className="w-5 h-5" />
+            <span className="text-lg font-semibold"> Add Doctors</span>
+          </Button>
+        </Link>
       </div>
 
       <StatisticsDoctors />
