@@ -13,10 +13,12 @@ function page() {
           title="Admins Management"
           decs="Oversee system-wide roles and clinic-specific administrative access."
         />
+        <Link href="/dashboard/admins/add">
         <Button className="flex gap-1 bg-blue-800 text-white px-6 py-5 items-center cursor-pointer">
           <CirclePlus className="w-5 h-5" />
-          <Link href="/dashboard/admins/add" className="text-lg font-semibold"> Add Admins</Link>
+          <span className="text-lg font-semibold"> Add Admins</span>
         </Button>
+        </Link>
       </div>
 
       <AnalysisAdmins />
