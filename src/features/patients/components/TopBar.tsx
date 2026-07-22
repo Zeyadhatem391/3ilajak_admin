@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Search } from "lucide-react";
+import Link from "next/link";
 
 function TopBar() {
   return (
@@ -14,10 +15,12 @@ function TopBar() {
         />
       </div>
 
-      <Button className="px-4 py-5 bg-blue-900 text-lg text-white flex gap-2">
-        <Plus />
-        <span>Add New Patient</span>
-      </Button>
+      <Link href="/dashboard/patients/add">
+        <Button className="px-4 py-5 bg-blue-900 text-lg text-white flex gap-2 cursor-pointer">
+          <Plus />
+          <span>Add Patient</span>
+        </Button>
+      </Link>
     </div>
   );
 }
