@@ -3,6 +3,7 @@ import AnalysisClinicAdmins from "@/features/clinic-admins/components/AnalysisCl
 import TableClinicAdmins from "@/features/clinic-admins/components/TableClinicAdmins";
 import TitlePage from "@/shared/components/atoms/TitlePage";
 import { CirclePlus } from "lucide-react";
+import Link from "next/link";
 
 function page() {
   return (
@@ -12,10 +13,12 @@ function page() {
           title="Clinic Admin Management"
           decs="Oversee and manage administrators assigned to clinical facilities across the network."
         />
-        <Button className="flex gap-1 bg-blue-800 text-white px-6 py-5 items-center ">
-          <CirclePlus className="w-5 h-5" />
-          <span className="text-lg font-semibold"> Create Clinic Admin</span>
-        </Button>
+        <Link href="/dashboard/clinic-admins/add">
+          <Button className="flex gap-1 bg-blue-800 text-white px-6 py-5 items-center cursor-pointer">
+            <CirclePlus className="w-5 h-5" />
+            <span className="text-lg font-semibold"> Add Clinic Admin</span>
+          </Button>
+        </Link>
       </div>
 
       <AnalysisClinicAdmins />
