@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Mail, User, UserLock } from "lucide-react";
+import { Lock, LockOpen, UserLock } from "lucide-react";
 
 function CredentialsDoctor() {
   return (
@@ -18,7 +18,7 @@ function CredentialsDoctor() {
               </Label>
 
               <div className="relative bg-gray-100 ">
-                <User
+                <Lock
                   size={18}
                   className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
                 />
@@ -38,7 +38,7 @@ function CredentialsDoctor() {
               </Label>
 
               <div className="relative bg-gray-100 ">
-                <Mail
+                <LockOpen
                   size={18}
                   className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
                 />
