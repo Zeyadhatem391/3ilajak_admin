@@ -95,9 +95,11 @@ export const productColumns: ColumnDef<Product>[] = [
       const patient = row.original;
       return (
         <div className="flex items-center gap-2.5">
-          <button className="rounded-md cursor-pointer  text-blue-800">
-            <Eye className="h-6 w-6" />
-          </button>
+          <Link href={`/dashboard/patients/${patient.id}`}>
+            <button className="rounded-md cursor-pointer  text-blue-800">
+              <Eye className="h-6 w-6" />
+            </button>
+          </Link>
           <Link href={`/dashboard/patients/${patient.id}/update`}>
             <button className="rounded-md cursor-pointer">
               <Pencil className="h-6 w-6" />
