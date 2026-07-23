@@ -94,9 +94,6 @@ export const adminsColumns: ColumnDef<Admins>[] = [
       const admins = row.original;
       return (
         <div className="flex items-center gap-2.5">
-          <button className="rounded-md cursor-pointer  text-blue-800">
-            <Eye className="h-6 w-6" />
-          </button>
           <Link href={`/dashboard/admins/${admins.id}/update`}>
             <button className="rounded-md cursor-pointer">
               <Pencil className="h-6 w-6" />

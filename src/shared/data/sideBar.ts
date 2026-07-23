@@ -1,5 +1,5 @@
 import {
-    BellDot, ChartNoAxesColumn, CircleUserRound, Clipboard,
+    BellDot, CircleUserRound,
     ClipboardClock, LayoutDashboard, Settings, Sheet, ShieldCogCorner,
     SquarePlus, User, UserStar
 } from "@/assets/icon/icons";
@@ -36,7 +36,7 @@ export const menus = [
         name: "Patients",
         link: "/dashboard/patients",
     },
-       {
+    {
         icon: ClipboardClock,
         name: "Appointments",
         link: "/dashboard/appointments",
@@ -46,20 +46,9 @@ export const menus = [
         name: "Notifications",
         link: "/dashboard/notifications",
     },
-];
-
-
-
-
-export const settings = [
     {
         icon: CircleUserRound,
         name: "Profile",
         link: "/dashboard/profile",
-    },
-    {
-        icon: Settings,
-        name: "Settings",
-        link: "/dashboard/settings",
     },
 ];
