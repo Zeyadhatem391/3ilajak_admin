@@ -1,8 +1,6 @@
-import { profile } from "@/assets/images/image";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, Pencil, Trash2 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 interface Clinics {
   id: number;
@@ -83,9 +81,11 @@ export const clinicsColumns: ColumnDef<Clinics>[] = [
       const clinic = row.original;
       return (
         <div className="flex items-center gap-2.5">
-          <button className="rounded-md cursor-pointer  text-blue-800">
-            <Eye className="h-6 w-6" />
-          </button>
+          <Link href={`/dashboard/clinics/${clinic.id}`}>
+            <button className="rounded-md cursor-pointer text-blue-800">
+              <Eye className="h-6 w-6" />
+            </button>
+          </Link>
           <Link href={`/dashboard/clinics/${clinic.id}/update`}>
             <button className="rounded-md cursor-pointer">
               <Pencil className="h-6 w-6" />

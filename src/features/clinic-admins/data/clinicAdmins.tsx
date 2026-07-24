@@ -1,7 +1,7 @@
-import { profile } from "@/assets/images/image";
+import { unknown } from "@/assets/images/image";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
-import { Eye, Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
 import Link from "next/link";
@@ -111,35 +111,35 @@ export const clinicAdmins: ClinicAdmins[] = [
     id: 1,
     name: "Ahmed Ali",
     email: "ahmed.ali@example.com",
-    image: profile,
+    image: unknown,
     clinic: "active",
   },
   {
     id: 2,
     name: "Sara Mohamed",
     email: "sara.m@example.com",
-    image: profile,
+    image: unknown,
     clinic: "inactive",
   },
   {
     id: 3,
     name: "Omar Hassan",
     email: "omar.h@example.com",
-    image: profile,
+    image: unknown,
     clinic: "active",
   },
   {
     id: 4,
     name: "Mona Ibrahim",
     email: "mona.i@example.com",
-    image: profile,
+    image: unknown,
     clinic: "active",
   },
   {
     id: 5,
     name: "Youssef Adel",
     email: "youssef.a@example.com",
-    image: profile,
+    image: unknown,
     clinic: "inactive",
   },
 ];

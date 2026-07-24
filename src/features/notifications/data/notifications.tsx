@@ -1,4 +1,3 @@
-import { profile } from "@/assets/images/image";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, EyeClosed, LucideIcon, Pencil } from "lucide-react";
 

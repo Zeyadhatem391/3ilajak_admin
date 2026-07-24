@@ -1,4 +1,4 @@
-import { profile } from "@/assets/images/image";
+import { unknown } from "@/assets/images/image";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
@@ -118,7 +118,7 @@ export const products: Product[] = [
     id: 1,
     name: "Ahmed Ali",
     email: "ahmed.ali@example.com",
-    image: profile,
+    image: unknown,
     patientId: "882913",
     lastVisit: "2026-07-15",
     status: "active",
@@ -127,7 +127,7 @@ export const products: Product[] = [
     id: 2,
     name: "Sara Mohamed",
     email: "sara.m@example.com",
-    image: profile,
+    image: unknown,
     patientId: "1002",
     lastVisit: "2026-07-12",
     status: "inactive",
@@ -136,7 +136,7 @@ export const products: Product[] = [
     id: 3,
     name: "Omar Hassan",
     email: "omar.h@example.com",
-    image: profile,
+    image: unknown,
     patientId: "1003",
     lastVisit: "2026-07-10",
     status: "active",
@@ -145,7 +145,7 @@ export const products: Product[] = [
     id: 4,
     name: "Mona Ibrahim",
     email: "mona.i@example.com",
-    image: profile,
+    image: unknown,
     patientId: "1004",
     lastVisit: "2026-07-08",
     status: "active",
@@ -154,7 +154,7 @@ export const products: Product[] = [
     id: 5,
     name: "Youssef Adel",
     email: "youssef.a@example.com",
-    image: profile,
+    image: unknown,
     patientId: "1005",
     lastVisit: "2026-07-05",
     status: "inactive",
