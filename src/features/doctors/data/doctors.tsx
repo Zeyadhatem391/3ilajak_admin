@@ -1,9 +1,10 @@
 import { unknown } from "@/assets/images/image";
+import HoverPrefetchLink from "@/shared/components/hover-prefetch/hover-prefetch-link";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
-import Link from "next/link";
+
 interface Doctors {
   id: number;
   name: string;
@@ -110,16 +111,16 @@ export const doctorsColumns: ColumnDef<Doctors>[] = [
       const doctor = row.original;
       return (
         <div className="flex items-center gap-2.5">
-          <Link href={`/dashboard/doctors/${doctor.id}`}>
+          <HoverPrefetchLink href={`/dashboard/doctors/${doctor.id}`}>
             <button className="rounded-md cursor-pointer  text-blue-800">
               <Eye className="h-6 w-6" />
             </button>
-          </Link>
-          <Link href={`/dashboard/doctors/${doctor.id}/update`}>
+          </HoverPrefetchLink>
+          <HoverPrefetchLink href={`/dashboard/doctors/${doctor.id}/update`}>
             <button className="rounded-md cursor-pointer">
               <Pencil className="h-6 w-6" />
             </button>
-          </Link>
+          </HoverPrefetchLink>
           <button className="rounded-md cursor-pointer  text-red-900">
             <Trash2 className="h-6 w-6" />
           </button>

@@ -1,10 +1,11 @@
 import { unknown } from "@/assets/images/image";
 import { Checkbox } from "@/components/ui/checkbox";
+import HoverPrefetchLink from "@/shared/components/hover-prefetch/hover-prefetch-link";
 import { ColumnDef } from "@tanstack/react-table";
 import { Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
-import Link from "next/link";
+
 interface ClinicAdmins {
   id: number;
   name: string;
@@ -93,11 +94,11 @@ export const clinicAdminsColumns: ColumnDef<ClinicAdmins>[] = [
       const clinicAdmins = row.original;
       return (
         <div className="flex items-center gap-2.5">
-          <Link href={`/dashboard/clinic-admins/${clinicAdmins.id}/update`}>
+          <HoverPrefetchLink href={`/dashboard/clinic-admins/${clinicAdmins.id}/update`}>
             <button className="rounded-md cursor-pointer">
               <Pencil className="h-6 w-6" />
             </button>
-          </Link>
+          </HoverPrefetchLink>
           <button className="rounded-md cursor-pointer  text-red-900">
             <Trash2 className="h-6 w-6" />
           </button>

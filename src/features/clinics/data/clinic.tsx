@@ -1,7 +1,8 @@
 import { Checkbox } from "@/components/ui/checkbox";
+import HoverPrefetchLink from "@/shared/components/hover-prefetch/hover-prefetch-link";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, Pencil, Trash2 } from "lucide-react";
-import Link from "next/link";
+
 interface Clinics {
   id: number;
   name: string;
@@ -81,16 +82,16 @@ export const clinicsColumns: ColumnDef<Clinics>[] = [
       const clinic = row.original;
       return (
         <div className="flex items-center gap-2.5">
-          <Link href={`/dashboard/clinics/${clinic.id}`}>
+          <HoverPrefetchLink href={`/dashboard/clinics/${clinic.id}`}>
             <button className="rounded-md cursor-pointer text-blue-800">
               <Eye className="h-6 w-6" />
             </button>
-          </Link>
-          <Link href={`/dashboard/clinics/${clinic.id}/update`}>
+          </HoverPrefetchLink>
+          <HoverPrefetchLink href={`/dashboard/clinics/${clinic.id}/update`}>
             <button className="rounded-md cursor-pointer">
               <Pencil className="h-6 w-6" />
             </button>
-          </Link>
+          </HoverPrefetchLink>
           <button className="rounded-md cursor-pointer  text-red-900">
             <Trash2 className="h-6 w-6" />
           </button>
