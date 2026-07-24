@@ -1,4 +1,4 @@
-import { profile } from "@/assets/images/image";
+import { unknown } from "@/assets/images/image";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
@@ -133,7 +133,7 @@ export const doctors: Doctors[] = [
     id: 1,
     name: "Ahmed Ali",
     email: "ahmed.ali@example.com",
-    image: profile,
+    image: unknown,
     medicalLicense: "882913",
     nationalID: "3051115123557",
     phone: "2345678",
@@ -143,7 +143,7 @@ export const doctors: Doctors[] = [
     id: 2,
     name: "Sara Mohamed",
     email: "sara.m@example.com",
-    image: profile,
+    image: unknown,
     medicalLicense: "1002",
     nationalID: "3051115123557",
     phone: "2345678",
@@ -153,7 +153,7 @@ export const doctors: Doctors[] = [
     id: 3,
     name: "Omar Hassan",
     email: "omar.h@example.com",
-    image: profile,
+    image: unknown,
     medicalLicense: "1003",
     nationalID: "3051115123557",
     phone: "2345678",
@@ -163,7 +163,7 @@ export const doctors: Doctors[] = [
     id: 4,
     name: "Mona Ibrahim",
     email: "mona.i@example.com",
-    image: profile,
+    image: unknown,
     medicalLicense: "1004",
     nationalID: "3051115123557",
     phone: "2345678",
@@ -173,7 +173,7 @@ export const doctors: Doctors[] = [
     id: 5,
     name: "Youssef Adel",
     email: "youssef.a@example.com",
-    image: profile,
+    image: unknown,
     medicalLicense: "1005",
     nationalID: "3051115123557",
     phone: "2345678",

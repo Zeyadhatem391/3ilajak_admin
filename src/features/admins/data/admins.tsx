@@ -1,7 +1,6 @@
-import { profile } from "@/assets/images/image";
-import { Checkbox } from "@/components/ui/checkbox";
+import { unknown } from "@/assets/images/image";
 import { ColumnDef } from "@tanstack/react-table";
-import { Eye, Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
 import Link from "next/link";
@@ -113,7 +112,7 @@ export const admins: Admins[] = [
     idAdmin: "401",
     name: "Ahmed Ali",
     email: "ahmed.ali@example.com",
-    image: profile,
+    image: unknown,
     status: "active",
   },
   {
@@ -121,7 +120,7 @@ export const admins: Admins[] = [
     idAdmin: "401",
     name: "Sara Mohamed",
     email: "sara.m@example.com",
-    image: profile,
+    image: unknown,
     status: "inactive",
   },
   {
@@ -129,7 +128,7 @@ export const admins: Admins[] = [
     idAdmin: "401",
     name: "Omar Hassan",
     email: "omar.h@example.com",
-    image: profile,
+    image: unknown,
     status: "active",
   },
   {
@@ -137,7 +136,7 @@ export const admins: Admins[] = [
     idAdmin: "401",
     name: "Mona Ibrahim",
     email: "mona.i@example.com",
-    image: profile,
+    image: unknown,
     status: "active",
   },
   {
@@ -145,7 +144,7 @@ export const admins: Admins[] = [
     idAdmin: "401",
     name: "Youssef Adel",
     email: "youssef.a@example.com",
-    image: profile,
+    image: unknown,
     status: "inactive",
   },
 ];

@@ -1,4 +1,4 @@
-import { profile } from "@/assets/images/image";
+import { unknown } from "@/assets/images/image";
 import Image from "next/image";
 
 function PhoteDoctors() {
@@ -7,7 +7,7 @@ function PhoteDoctors() {
       <div className="flex flex-col gap-2">
         <p className="font-semibold">PROFILE PHOTO</p>
         <Image
-          src={profile}
+          src={unknown}
           alt="Profile"
           width={160}
           height={160}

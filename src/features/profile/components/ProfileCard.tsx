@@ -1,11 +1,11 @@
-import { profile } from "@/assets/images/image";
+import { unknown } from "@/assets/images/image";
 import Image from "next/image";
 
 function ProfileCard() {
   return (
     <div className="flex flex-col gap-4 bg-white p-6 shadow rounded-lg">
       <Image
-        src={profile}
+        src={unknown}
         alt="Profile"
         width={120}
         height={120}
