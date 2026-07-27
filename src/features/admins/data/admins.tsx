@@ -114,7 +114,7 @@ export const adminsColumns: ColumnDef<Admin>[] = [
               <Pencil className="h-6 w-6" />
             </button>
           </HoverPrefetchLink>
-          <DeleteAdminButton adminId={admin.id} />
+          {/* <DeleteAdminButton adminId={admin.id} /> */}
         </div>
       );
     },
