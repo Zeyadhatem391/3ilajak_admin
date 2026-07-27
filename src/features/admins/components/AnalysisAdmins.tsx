@@ -1,12 +1,17 @@
 import AnalysisCard from "@/shared/components/atoms/AnalysisCard";
-import { Hospital, ShieldCheck, User, UserRoundX, Users } from "lucide-react";
+import { Hospital, ShieldCheck, UserRoundX, Users } from "lucide-react";
+import { Admin } from "../api/getAllAdmins";
 
-function AnalysisAdmins() {
+interface AnalysisAdminsProps {
+  admins: Admin[];
+}
+
+function AnalysisAdmins({ admins }: AnalysisAdminsProps) {
   return (
     <div className="grid grid-cols-4 gap-4">
       <AnalysisCard
         title="TOTAL ADMINS"
-        desc="124"
+        desc={admins.length}
         analysis="+4.2%"
         icon={Users}
         color="bg-gray-200 text-gray-800"
@@ -17,7 +22,7 @@ function AnalysisAdmins() {
         desc="12"
         analysis="Healthy"
         icon={ShieldCheck}
-         color="bg-green-200 text-green-800"
+        color="bg-green-200 text-green-800"
       />
 
       <AnalysisCard
@@ -25,7 +30,7 @@ function AnalysisAdmins() {
         desc="112"
         analysis="85 Clinics"
         icon={Hospital}
-         color="bg-blue-200 text-blue-800"
+        color="bg-blue-200 text-blue-800"
       />
 
       <AnalysisCard
@@ -33,7 +38,7 @@ function AnalysisAdmins() {
         desc="03"
         analysis="Attention"
         icon={UserRoundX}
-         color="bg-red-200 text-red-800"
+        color="bg-red-200 text-red-800"
       />
     </div>
   );

@@ -15,10 +15,9 @@ async function Page({ params }: PageProps) {
 
   return (
     <div className="flex flex-col gap-6">
-
       <div className="grid grid-cols-12 items-start gap-6">
         <div className="col-span-8 flex flex-col gap-6">
-          <FormAdmins />
+          <FormAdmins mode="update" />
         </div>
         <div className="col-span-4 flex flex-col gap-6">
           <PermissionAdmins />

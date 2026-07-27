@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Info, Mail, User } from "lucide-react";
+import { Info } from "lucide-react";
 
 function FormClinics() {
   return (
@@ -22,7 +22,7 @@ function FormClinics() {
                 id="name"
                 type="text"
                 placeholder="e.g. Al-Noor Specialized Medical Center"
-                className="h-11 pl-4 border-2 border-gray-200 "
+                className="h-11 pl-4 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
               />
             </div>
           </div>
@@ -38,7 +38,7 @@ function FormClinics() {
                   id="max_num"
                   type="text"
                   placeholder="10"
-                  className="h-11 pl-4 border-2 border-gray-200 "
+                  className="h-11 pl-4 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
                 />
               </div>
             </div>
@@ -52,7 +52,7 @@ function FormClinics() {
                   id="facility"
                   type="text"
                   placeholder="General Practice"
-                  className="h-11 pl-4 border-2 border-gray-200 "
+                  className="h-11 pl-4 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
                 />
               </div>
             </div>
@@ -64,7 +64,7 @@ function FormClinics() {
             <div className="relative bg-gray-100 ">
               <Textarea
                 id="address"
-                className="h-25"
+                className="h-25 focus-visible:border-gray-500 focus-visible:ring-0"
                 placeholder="Street name, Building No, Floor, City, Country"
               />
             </div>

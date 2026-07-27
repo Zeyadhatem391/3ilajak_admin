@@ -1,5 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { BellDot, CircleQuestionMark, Search } from "@/assets/icon/icons";
+import AdminProfile from "./atoms/AdminProfile";
 
 export default function NavBar() {
   return (
@@ -24,19 +25,7 @@ export default function NavBar() {
           </button>
         </div>
 
-        <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-900 text-sm font-semibold text-white">
-            ZH
-          </div>
-
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold text-gray-900">
-              Zeyad Hatem
-            </span>
-
-            <span className="text-xs text-gray-500">Administrator</span>
-          </div>
-        </div>
+       <AdminProfile />
       </div>
     </header>
   );

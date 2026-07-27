@@ -1,52 +1,53 @@
-import { unknown } from "@/assets/images/image";
 import HoverPrefetchLink from "@/shared/components/hover-prefetch/hover-prefetch-link";
 import { ColumnDef } from "@tanstack/react-table";
 import { Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
-import { StaticImageData } from "next/image";
+import { Admin } from "../api/getAllAdmins";
+import { formatDate } from "@/shared/components/atoms/formatDate";
+import { Checkbox } from "@/components/ui/checkbox";
+import DeleteAdminButton from "../components/DeleteAdminButton";
 
-interface Admins {
-  id: number;
-  idAdmin: string;
-  name: string;
-  email: string;
-  image: string | StaticImageData;
-  status: "active" | "inactive";
-}
-
-export const adminsColumns: ColumnDef<Admins>[] = [
+export const adminsColumns: ColumnDef<Admin>[] = [
   {
-    id: "id",
-    header: "ID",
-    cell: ({ row }) => {
-      const patient = row.original;
-
-      return (
-        <div className="bg-blue-100 pl-3 py-1 rounded-lg">
-          #ADM-{patient.idAdmin}
-        </div>
-      );
-    },
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected()}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
   },
 
   {
     id: "name",
     header: "ADMIN NAME",
     cell: ({ row }) => {
-      const patient = row.original;
+      const admin = row.original;
+
+      const initials = admin.name
+        .split(" ")
+        .map((word) => word[0])
+        .join("")
+        .slice(0, 2)
+        .toUpperCase();
 
       return (
         <div className="flex items-center gap-3">
-          <Image
-            src={patient.image}
-            alt={patient.name}
-            width={40}
-            height={40}
-            className="rounded-full object-cover"
-          />
-
+          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-900 text-sm font-semibold text-white">
+            {initials}
+          </div>
           <div>
-            <p className="font-medium text-lg">{patient.name}</p>
+            <p className="font-medium text-lg">{admin.name}</p>
           </div>
         </div>
       );
@@ -57,12 +58,26 @@ export const adminsColumns: ColumnDef<Admins>[] = [
     accessorKey: "email",
     header: "Email",
     cell: ({ row }) => {
-      const patient = row.original;
+      const admin = row.original;
 
       return (
         <div>
-          <p className="text-gray-700 text-lg">{patient.email}</p>
+          <p className="text-gray-700 text-lg">{admin.email}</p>
         </div>
+      );
+    },
+  },
+
+  {
+    accessorKey: "created_at",
+    header: "CREATED AT",
+    cell: ({ row }) => {
+      const admin = row.original;
+
+      return (
+        <span className="text-gray-700 text-lg">
+          {formatDate(admin.created_at)}
+        </span>
       );
     },
   },
@@ -91,61 +106,17 @@ export const adminsColumns: ColumnDef<Admins>[] = [
     id: "actions",
     header: "ACTIONS",
     cell: ({ row }) => {
-      const admins = row.original;
+      const admin = row.original;
       return (
         <div className="flex items-center gap-2.5">
-          <HoverPrefetchLink href={`/dashboard/admins/${admins.id}/update`}>
+          <HoverPrefetchLink href={`/dashboard/admins/${admin.id}/update`}>
             <button className="rounded-md cursor-pointer">
               <Pencil className="h-6 w-6" />
             </button>
           </HoverPrefetchLink>
-          <button className="rounded-md cursor-pointer  text-red-900">
-            <Trash2 className="h-6 w-6" />
-          </button>
+          <DeleteAdminButton adminId={admin.id} />
         </div>
       );
     },
-  },
-];
-export const admins: Admins[] = [
-  {
-    id: 1,
-    idAdmin: "401",
-    name: "Ahmed Ali",
-    email: "ahmed.ali@example.com",
-    image: unknown,
-    status: "active",
-  },
-  {
-    id: 2,
-    idAdmin: "401",
-    name: "Sara Mohamed",
-    email: "sara.m@example.com",
-    image: unknown,
-    status: "inactive",
-  },
-  {
-    id: 3,
-    idAdmin: "401",
-    name: "Omar Hassan",
-    email: "omar.h@example.com",
-    image: unknown,
-    status: "active",
-  },
-  {
-    id: 4,
-    idAdmin: "401",
-    name: "Mona Ibrahim",
-    email: "mona.i@example.com",
-    image: unknown,
-    status: "active",
-  },
-  {
-    id: 5,
-    idAdmin: "401",
-    name: "Youssef Adel",
-    email: "youssef.a@example.com",
-    image: unknown,
-    status: "inactive",
   },
 ];

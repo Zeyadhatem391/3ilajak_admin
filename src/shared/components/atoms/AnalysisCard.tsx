@@ -2,7 +2,7 @@ import { LucideIcon } from "lucide-react";
 
 interface Props {
   title: string;
-  desc: string;
+  desc: string | number;
   analysis: string;
   icon: LucideIcon;
   color?: string;
@@ -24,9 +24,7 @@ function AnalysisCard({
           <Icon className="h-6 w-6" />
         </div>
 
-        <span
-          className={`rounded-full px-3 py-1 font-medium  ${color}`}
-        >
+        <span className={`rounded-full px-3 py-1 font-medium  ${color}`}>
           {analysis}
         </span>
       </div>

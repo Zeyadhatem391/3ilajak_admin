@@ -1,11 +1,9 @@
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import IconLogo from "@/shared/components/atoms/IconLogo";
-import { Eye, Lock, Mail, ShieldHalf } from "@/assets/icon/icons";
+import { ShieldHalf } from "@/assets/icon/icons";
+import LoginForm from "@/features/login/components/LoginForm";
 
 function Page() {
+
   return (
     <div className="flex py-10 items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md">
@@ -28,78 +26,7 @@ function Page() {
             </p>
           </div>
 
-          <form className="space-y-5">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email Address</Label>
-
-              <div className="relative bg-gray-100 ">
-                <Mail
-                  size={18}
-                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                />
-
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="dr.smith@3ilajak.com"
-                  className="h-11 pl-10 border-2 border-gray-200 "
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="password">Password</Label>
-
-                <Button
-                  type="button"
-                  variant="link"
-                  className="h-auto p-0 text-sm text-blue-800"
-                >
-                  Forgot Password?
-                </Button>
-              </div>
-
-              <div className="relative bg-gray-100">
-                <Lock
-                  size={18}
-                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                />
-
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  className="h-11 pl-10 pr-10 border-2 border-gray-200 "
-                />
-
-                <button
-                  type="button"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-slate-700"
-                >
-                  <Eye size={18} />
-                </button>
-              </div>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <Checkbox id="remember" />
-
-              <Label
-                htmlFor="remember"
-                className="cursor-pointer font-normal text-slate-600"
-              >
-                Remember this device for 30 days
-              </Label>
-            </div>
-
-            <Button
-              type="submit"
-              className="h-11 w-full bg-blue-900 text-white p-1.5 rounded-lg"
-            >
-              Sign In
-            </Button>
-          </form>
+          <LoginForm />
           <div className="border border-gray-300 my-5"></div>
 
           <div className="text-center text-sm">
