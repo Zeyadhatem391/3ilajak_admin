@@ -1,7 +1,6 @@
 import HoverPrefetchLink from "@/shared/components/hover-prefetch/hover-prefetch-link";
 import { ColumnDef } from "@tanstack/react-table";
-import { Pencil, Trash2 } from "lucide-react";
-import Image from "next/image";
+import { Pencil } from "lucide-react";
 import { Admin } from "../api/getAllAdmins";
 import { formatDate } from "@/shared/components/atoms/formatDate";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -114,7 +113,7 @@ export const adminsColumns: ColumnDef<Admin>[] = [
               <Pencil className="h-6 w-6" />
             </button>
           </HoverPrefetchLink>
-          {/* <DeleteAdminButton adminId={admin.id} /> */}
+          <DeleteAdminButton adminId={admin.id} />
         </div>
       );
     },
