@@ -15,6 +15,13 @@ export const addAdmins = z.object({
             "Minimum 8 characters with symbols, numbers, and uppercase letters.",
         ),
 
+    password_confirmation: z
+        .string()
+        .min(
+            8,
+            "Minimum 8 characters with symbols, numbers, and uppercase letters.",
+        ),
+
 
 });
 

@@ -7,16 +7,21 @@ import z from "zod";
 import { addAdmins, updateAdmins } from "../schema/admins";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { updateAdmin, updateAdminInput } from "../api/updateAdmin";
+import { addAdmin, addAdminInput } from "../api/addAdmins";
+import { useRouter } from "next/navigation";
 
 type AddAdminsInput = z.infer<typeof addAdmins>;
 type UpdateAdminsInput = z.infer<typeof updateAdmins>;
 
 type FormAdminsProps = {
   mode?: "add" | "update";
+  adminId?: number;
 };
 
-function FormAdmins({ mode = "add" }: FormAdminsProps) {
-
+function FormAdmins({ mode = "add", adminId }: FormAdminsProps) {
+  const router = useRouter();
   const isUpdate = mode === "update";
 
   const schema = isUpdate ? updateAdmins : addAdmins;
@@ -26,18 +31,47 @@ function FormAdmins({ mode = "add" }: FormAdminsProps) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<FormInput>({
     resolver: zodResolver(schema),
     mode: "onBlur",
   });
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (data: FormInput) => {
+      if (isUpdate) {
+        if (!adminId) {
+          throw new Error("Admin ID is required");
+        }
+
+        return updateAdmin(data as updateAdminInput, {
+          id: adminId,
+        });
+      }
+
+      return addAdmin(data as addAdminInput);
+    },
+
+    onSuccess: (response) => {
+      console.log(
+        isUpdate ? "Admin updated successfully" : "Admin added successfully",
+        response,
+      );
+
+      reset();
+      router.push("/dashboard/admins");
+    },
+    onError: (error) => {
+      console.error(
+        isUpdate ? "Failed to update admin" : "Failed to add admin",
+        error,
+      );
+    },
+  });
+
   const onSubmit = (data: FormInput) => {
-    if (isUpdate) {
-      console.log("Update Admin:", data);
-    } else {
-      console.log("Add Admin:", data);
-    }
+    mutate(data);
   };
 
   return (
@@ -108,49 +142,84 @@ function FormAdmins({ mode = "add" }: FormAdminsProps) {
             </div>
           </div>
 
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <Label htmlFor="password">Security Password</Label>
+          <div className="flex gap-4 justify-between">
+            <div className="w-full">
+              <Label htmlFor="password" className="mb-2">
+                Security Password
+              </Label>
+
+              <div className="relative bg-gray-100">
+                <Lock
+                  size={18}
+                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                />
+
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  className="h-11 pl-10 pr-10 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
+                  {...register("password")}
+                />
+
+                <button
+                  type="button"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-slate-700"
+                >
+                  <Eye size={18} />
+                </button>
+              </div>
+              {errors.password && (
+                <p className="text-red-800">{errors.password.message}</p>
+              )}
             </div>
 
-            <div className="relative bg-gray-100">
-              <Lock
-                size={18}
-                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-              />
+            {!isUpdate && (
+              <div className="w-full">
+                <Label htmlFor="password_con" className="mb-2">
+                  Confirm password
+                </Label>
 
-              <Input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                className="h-11 pl-10 pr-10 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
-                {...register("password")}
-              />
+                <div className="relative bg-gray-100">
+                  <Lock
+                    size={18}
+                    className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
 
-              <button
-                type="button"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-slate-700"
-              >
-                <Eye size={18} />
-              </button>
-            </div>
-            {errors.password && (
-              <p className="text-red-800">{errors.password.message}</p>
+                  <Input
+                    id="password_con"
+                    type="password"
+                    placeholder="Confirm password"
+                    className="h-11 pl-10 pr-10 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
+                    {...register("password_confirmation")}
+                  />
+
+                  <button
+                    type="button"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-slate-700"
+                  >
+                    <Eye size={18} />
+                  </button>
+                </div>
+                {errors.password_confirmation && (
+                  <p className="text-red-800">
+                    {errors.password_confirmation.message}
+                  </p>
+                )}
+              </div>
             )}
           </div>
 
           <div className="flex gap-2 justify-end border-t-2 border-gray-400 pt-6">
-            <Button
-              className="h-11 w-24 text-xg text-gray-600 font-semibold cursor-pointer rounded-lg border border-gray-400"
-            >
+            <Button className="h-11 w-24 text-xg text-gray-600 font-semibold cursor-pointer rounded-lg border border-gray-400">
               Cancel
             </Button>
             <Button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isPending || isSubmitting}
               className="bg-blue-800 h-11 w-44 font-semibold rounded-lg text-white cursor-pointer"
             >
-              {isSubmitting
+              {isPending
                 ? "Saving..."
                 : isUpdate
                   ? "Update Administrator"

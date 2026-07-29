@@ -22,7 +22,7 @@ function TableDoctors() {
       </div>
       <DataTable columns={doctorsColumns} data={doctors} />
 
-      <DataTablePagination page={1} totalPages={10} />
+       <div className="flex items-center justify-between border border-gray-300 px-6 py-4 bg-blue-100/50 rounded-b-xl" />
     </div>
   );
 }
