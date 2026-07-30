@@ -12,7 +12,7 @@ export async function deleteAdmin(adminId: number) {
   }
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/Admin-destroy/${adminId}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/admin/Admin-destroy/${adminId}`,
     {
       method: "DELETE",
       headers: {

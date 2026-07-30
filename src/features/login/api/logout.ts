@@ -9,7 +9,7 @@ export async function logout() {
   }
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/logout`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/admin/logout`,
     {
       method: "POST",
       headers: {

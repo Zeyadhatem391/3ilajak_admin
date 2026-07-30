@@ -6,7 +6,7 @@ export type LoginInput = {
 
 export async function loginAdmin(data: LoginInput) {
     const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/login`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/login`,
         {
             method: "POST",
             headers: {

@@ -10,7 +10,7 @@ export default function SideBar() {
   const pathname = usePathname();
 
   return (
-    <div className="h-full w-68 overflow-y-auto custom-scroll pt-8  border-r border-gray-300">
+    <div className="sticky top-0 h-screen pt-8 w-68 overflow-y-auto border-r border-gray-300">
       <div className="flex flex-col gap-8 px-4">
         <div className="flex items-center gap-3.5">
           <IconLogo />

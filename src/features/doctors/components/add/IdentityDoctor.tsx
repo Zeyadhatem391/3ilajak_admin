@@ -1,8 +1,24 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { IdCard, IdCardIcon, IdCardLanyard, Mail, Rainbow, User } from "lucide-react";
+import { IdCard, IdCardIcon, IdCardLanyard, Rainbow, User } from "lucide-react";
+import { useFormContext } from "react-hook-form";
+import { AddDoctorsInput } from "../../schema/doctors";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 function IdentityDoctor() {
+  const {
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useFormContext<AddDoctorsInput>();
+
   return (
     <div className="flex flex-col bg-white shadow rounded-2xl p-6">
       <div className="flex gap-1.5 items-center">
@@ -10,10 +26,10 @@ function IdentityDoctor() {
         <span className="font-bold text-lg">Identity & Profile</span>
       </div>
       <div className="py-6">
-        <form className="space-y-8">
+        <div className="space-y-8">
           <div className="flex gap-4 justify-between">
             <div className="w-full">
-              <Label htmlFor="name" className="mb-2">
+              <Label htmlFor="name" className="mb-2 uppercase">
                 Full Name
               </Label>
 
@@ -27,29 +43,71 @@ function IdentityDoctor() {
                   id="name"
                   type="text"
                   placeholder="Dr. Jonathan Smith"
-                  className="h-11 pl-10 border-2 border-gray-200 "
+                  {...register("name")}
+                  className="h-11 pl-10 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
                 />
               </div>
+              {errors.name && (
+                <p className="mt-2 text-sm text-red-500">
+                  {errors.name.message}
+                </p>
+              )}
             </div>
 
             <div className="w-full">
-              <Label htmlFor="spec" className="mb-2">
-                SPECIALIZATION
+              <Label htmlFor="blood_type" className="mb-2 uppercase">
+                Blood Type
               </Label>
 
-              <div className="relative bg-gray-100 ">
+              <div className="relative">
                 <Rainbow
                   size={18}
-                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  className="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 text-slate-400"
                 />
 
-                <Input
-                  id="spec"
-                  type="text"
-                  placeholder="Select SPECIALIZATION"
-                  className="h-11 pl-10 border-2 border-gray-200 "
-                />
+                <Select
+                  value={watch("blood_type")}
+                  onValueChange={(value) =>
+                    setValue(
+                      "blood_type",
+                      value as AddDoctorsInput["blood_type"],
+                      {
+                        shouldValidate: true,
+                        shouldDirty: true,
+                      },
+                    )
+                  }
+                >
+                  <SelectTrigger
+                    id="blood_type"
+                    className="h-11 py-5 bg-gray-100 w-full border-2 border-gray-200 pl-10 focus-visible:border-gray-500 focus-visible:ring-0"
+                  >
+                    <SelectValue placeholder="Select Blood Type" />
+                  </SelectTrigger>
+                  <SelectContent
+                    position="popper"
+                    side="bottom"
+                    align="start"
+                    sideOffset={4}
+                    className="bg-white"
+                  >
+                    <SelectItem value="A+">A+</SelectItem>
+                    <SelectItem value="A-">A-</SelectItem>
+                    <SelectItem value="B+">B+</SelectItem>
+                    <SelectItem value="B-">B-</SelectItem>
+                    <SelectItem value="AB+">AB+</SelectItem>
+                    <SelectItem value="AB-">AB-</SelectItem>
+                    <SelectItem value="O+">O+</SelectItem>
+                    <SelectItem value="O-">O-</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
+
+              {errors.blood_type && (
+                <p className="mt-2 text-sm text-red-500">
+                  {errors.blood_type.message}
+                </p>
+              )}
             </div>
           </div>
 
@@ -69,9 +127,15 @@ function IdentityDoctor() {
                   id="n_id"
                   type="text"
                   placeholder="ID-99283-X"
-                  className="h-11 pl-10 border-2 border-gray-200 "
+                  {...register("national_id")}
+                  className="h-11 pl-10 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
                 />
               </div>
+              {errors.national_id && (
+                <p className="mt-2 text-sm text-red-500">
+                  {errors.national_id.message}
+                </p>
+              )}
             </div>
 
             <div className="w-full">
@@ -87,14 +151,78 @@ function IdentityDoctor() {
 
                 <Input
                   id="m_l"
-                  type="email"
+                  type="text"
                   placeholder="MLN-88776655"
-                  className="h-11 pl-10 border-2 border-gray-200 "
+                  {...register("medical_license")}
+                  className="h-11 pl-10 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
                 />
               </div>
+              {errors.medical_license && (
+                <p className="mt-2 text-sm text-red-500">
+                  {errors.medical_license.message}
+                </p>
+              )}
             </div>
           </div>
-        </form>
+
+          <div className="flex gap-4 justify-between">
+            <div className="w-full">
+              <Label htmlFor="clinic_id" className="mb-2 uppercase">
+                clinic
+              </Label>
+
+              <div className="relative bg-gray-100 ">
+                <IdCardIcon
+                  size={18}
+                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                />
+
+                <Input
+                  id="clinic_id"
+                  type="number"
+                  placeholder=""
+                  {...register("clinic_id", {
+                    valueAsNumber: true,
+                  })}
+                  className="h-11 pl-10 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
+                />
+              </div>
+              {errors.clinic_id && (
+                <p className="mt-2 text-sm text-red-500">
+                  {errors.clinic_id.message}
+                </p>
+              )}
+            </div>
+
+            <div className="w-full">
+              <Label htmlFor="specialization_id" className="mb-2 uppercase">
+                specialization
+              </Label>
+
+              <div className="relative bg-gray-100 ">
+                <IdCardLanyard
+                  size={18}
+                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                />
+
+                <Input
+                  id="specialization_id"
+                  type="number"
+                  placeholder=""
+                  {...register("specialization_id", {
+                    valueAsNumber: true,
+                  })}
+                  className="h-11 pl-10 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
+                />
+              </div>
+              {errors.specialization_id && (
+                <p className="mt-2 text-sm text-red-500">
+                  {errors.specialization_id.message}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

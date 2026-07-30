@@ -8,7 +8,7 @@ export type updateAdminInput = {
 
 export async function updateAdmin(data: updateAdminInput, { id }: { id: number }) {
     const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/Admin-update/${id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/Admin-update/${id}`,
         {
             method: "PUT",
             headers: {

@@ -1,41 +1,89 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { addDoctor } from "@/features/doctors/api/addDoctor";
 import DemoDoctors from "@/features/doctors/components/add/DemoDoctors";
-import PhoteDoctors from "@/features/doctors/components/add/PhoteDoctors";
+import FormDoctors from "@/features/doctors/components/add/FormDoctors";
 import StatusDoctors from "@/features/doctors/components/add/StatusDoctors";
-import FormDoctors from "@/features/doctors/components/FormDoctors";
+import { addDoctors, AddDoctorsInput } from "@/features/doctors/schema/doctors";
 import Breadcrumb from "@/shared/components/atoms/Breadcrumb";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { UserRoundCheck } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { FormProvider, useForm } from "react-hook-form";
 
+export default function Page() {
+  const router = useRouter();
 
-function page() {
+  const methods = useForm<AddDoctorsInput>({
+    resolver: zodResolver(addDoctors),
+    mode: "onBlur",
+  });
+
+  const {
+    reset,
+    formState: { isSubmitting },
+  } = methods;
+
+  const onSubmit = async (data: AddDoctorsInput) => {
+    try {
+
+      const response = await addDoctor(data);
+
+      console.log("API Success:", response);
+
+      reset();
+
+      router.push("/dashboard/doctors");
+      router.refresh();
+    } catch (error) {
+      console.error("API Error:", error);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <Breadcrumb />
 
-      <div className="grid grid-cols-12 items-start gap-6">
-        <div className="col-span-8 flex flex-col gap-6">
-          <FormDoctors />
-        </div>
-        <div className="col-span-4 flex flex-col gap-8">
-        <DemoDoctors />
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
+          <div className="grid grid-cols-12 items-start gap-6">
+            <div className="col-span-8 flex flex-col gap-6">
+              <FormDoctors />
+            </div>
 
-        <StatusDoctors />
+            <div className="col-span-4 flex flex-col gap-8">
+              <DemoDoctors />
+              <StatusDoctors />
+            </div>
+          </div>
+          <div className="mt-6 flex justify-end gap-2 border-t-2 border-gray-400 pt-6">
+            <Button
+              type="button"
+              variant="outline"
+              disabled={isSubmitting}
+              onClick={() => {
+                reset();
+              }}
+              className="h-11 w-40 cursor-pointer rounded-lg"
+            >
+              Discard Changes
+            </Button>
 
-        <PhoteDoctors />
-        </div>
-      </div>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="h-11 w-58 cursor-pointer rounded-lg bg-blue-800 text-lg font-semibold text-white"
+            >
+              <UserRoundCheck className="h-6 w-6" />
 
-        <div className="flex gap-2 justify-end border-t-2 border-gray-400 pt-6">
-          <Button className="h-11 w-30 text-xg text-gray-600 font-semibold cursor-pointer rounded-lg border border-gray-400">
-            Discard Changes
-          </Button>
-          <Button className="bg-blue-800 h-11 w-58 flex gap-2 font-semibold text-lg rounded-lg text-white cursor-pointer">
-           <UserRoundCheck className="w-7 h-7" />
-           <span> Complete Registration</span>
-          </Button>
-        </div>
+              <span>
+                {isSubmitting ? "Registering..." : "Complete Registration"}
+              </span>
+            </Button>
+          </div>
+        </form>
+      </FormProvider>
     </div>
   );
 }
-
-export default page;
