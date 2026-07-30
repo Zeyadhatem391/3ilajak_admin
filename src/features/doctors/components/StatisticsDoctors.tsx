@@ -5,13 +5,14 @@ import {
   ClipboardList,
   Users,
 } from "lucide-react";
+import { Doctor } from "../api/getAllDoctors";
 
-function StatisticsDoctors() {
+function StatisticsDoctors({ doctors }: { doctors: Doctor[] }) {
   return (
     <div className="grid grid-cols-4 gap-3">
       <StatisticsCard
         title="TOTAL DOCTORS"
-        desc="1,248"
+        desc={doctors.length}
         icon={Users}
         color="bg-gray-300 text-blue-900"
       />

@@ -43,10 +43,9 @@ export async function getAllAdmins({
 
   const queryString = params.toString();
 
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/All-Admin${queryString ? `?${queryString}` : ""
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/admin/All-Admin${queryString ? `?${queryString}` : ""
     }`;
 
-  console.log("REQUEST URL:", url);
 
   const res = await fetch(url, {
     method: "GET",
@@ -54,7 +53,6 @@ export async function getAllAdmins({
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
     },
-    cache: "no-store",
   });
 
   const responseText = await res.text();

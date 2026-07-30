@@ -1,11 +1,25 @@
 import { Button } from "@/components/ui/button";
+import { getAllDoctors } from "@/features/doctors/api/getAllDoctors";
 import StatisticsDoctors from "@/features/doctors/components/StatisticsDoctors";
 import TableDoctors from "@/features/doctors/components/TableDoctors";
 import TitlePage from "@/shared/components/atoms/TitlePage";
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
 
-function page() {
+interface PageProps {
+  searchParams: Promise<{
+    name?: string;
+  }>;
+}
+
+async function page({ searchParams }: PageProps) {
+  const { name } = await searchParams;
+
+  const response = await getAllDoctors({
+    name,
+  });
+
+  const doctors = response.data;
   return (
     <div className="flex flex-col gap-6">
       <div className="flex justify-between items-center">
@@ -21,9 +35,9 @@ function page() {
         </Link>
       </div>
 
-      <StatisticsDoctors />
+      <StatisticsDoctors doctors={doctors}/>
 
-      <TableDoctors />
+      <TableDoctors doctors={doctors}/>
     </div>
   );
 }

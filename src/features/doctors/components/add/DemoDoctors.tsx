@@ -1,3 +1,6 @@
+"use client";
+
+import { useFormContext } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -8,8 +11,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { UsersRound } from "lucide-react";
+import { AddDoctorsInput } from "../../schema/doctors";
 
-function DemoDoctors() {
+export default function DemoDoctors() {
+  const {
+    register,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useFormContext<AddDoctorsInput>();
+
+  const gender = watch("gender");
+
   return (
     <div className="rounded-xl bg-white p-5 shadow">
       <div className="flex items-center gap-2">
@@ -17,36 +30,60 @@ function DemoDoctors() {
         <span className="text-xl font-bold">Demographics</span>
       </div>
 
-      <div className="w-full my-8">
-        <Label htmlFor="date" className="mb-2">
+      <div className="my-8 w-full">
+        <Label htmlFor="date_of_birth" className="mb-2">
           DATE OF BIRTH
         </Label>
 
-        <div className="relative">
-          <Input
-            id="date"
-            type="date"
-            className="h-11 border-2 border-gray-200 "
-          />
-        </div>
+        <Input
+          id="date_of_birth"
+          type="date"
+          {...register("date_of_birth")}
+          className="h-11 border-2 border-gray-200 bg-gray-100 focus-visible:border-gray-500 focus-visible:ring-0"
+        />
+
+        {errors.date_of_birth && (
+          <p className="mt-1 text-sm text-red-500">
+            {errors.date_of_birth.message}
+          </p>
+        )}
       </div>
 
       <div className="flex w-full flex-col gap-2">
         <Label htmlFor="gender">Gender</Label>
 
-        <Select>
-          <SelectTrigger id="gender" className="w-1/2 border-gray-200 border ">
+        <Select
+          value={gender}
+          onValueChange={(value) =>
+            setValue("gender", value as AddDoctorsInput["gender"], {
+              shouldValidate: true,
+              shouldDirty: true,
+            })
+          }
+        >
+          <SelectTrigger
+            id="gender"
+            className="w-full border border-gray-200 py-5 bg-gray-100 focus-visible:border-gray-500 focus-visible:ring-0"
+          >
             <SelectValue placeholder="Select gender" />
           </SelectTrigger>
 
-          <SelectContent position="popper" className="bg-white">
+          <SelectContent
+            position="popper"
+            side="bottom"
+            align="start"
+            sideOffset={4}
+            className="bg-white"
+          >
             <SelectItem value="male">Male</SelectItem>
             <SelectItem value="female">Female</SelectItem>
           </SelectContent>
         </Select>
+
+        {errors.gender && (
+          <p className="text-sm text-red-500">{errors.gender.message}</p>
+        )}
       </div>
     </div>
   );
 }
-
-export default DemoDoctors;

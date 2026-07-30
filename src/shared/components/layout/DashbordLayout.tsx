@@ -10,7 +10,6 @@ interface Props {
 export default function DashbordLayout({ children }: Props) {
   return (
     <>
-      {/* Mobile Message */}
       <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-6 text-center lg:hidden">
         <div className="rounded-2xl border bg-white p-8 shadow-lg">
           <Laptop className="mx-auto mb-4 h-14 w-14 text-green-600" />
@@ -27,8 +26,7 @@ export default function DashbordLayout({ children }: Props) {
         </div>
       </div>
 
-      {/* Desktop Dashboard */}
-      <div className="hidden h-screen lg:flex">
+      <div className="hidden min-h-screen lg:flex">
         <SideBar />
 
         <div className="flex flex-1 flex-col overflow-hidden">

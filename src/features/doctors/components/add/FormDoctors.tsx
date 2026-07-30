@@ -1,6 +1,6 @@
-import CommunicationDoctor from "./add/CommunicationDoctor";
-import CredentialsDoctor from "./add/CredentialsDoctor";
-import IdentityDoctor from "./add/IdentityDoctor";
+import CommunicationDoctor from "./CommunicationDoctor";
+import CredentialsDoctor from "./CredentialsDoctor";
+import IdentityDoctor from "./IdentityDoctor";
 
 function FormDoctors() {
   return (

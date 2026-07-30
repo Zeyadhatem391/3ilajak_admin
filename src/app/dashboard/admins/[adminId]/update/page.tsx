@@ -11,13 +11,13 @@ interface PageProps {
 async function Page({ params }: PageProps) {
   const { adminId } = await params;
 
-  const id = adminId;
+  const id = Number(adminId);
 
   return (
     <div className="flex flex-col gap-6">
       <div className="grid grid-cols-12 items-start gap-6">
         <div className="col-span-8 flex flex-col gap-6">
-          <FormAdmins mode="update" />
+          <FormAdmins mode="update" adminId={id} />
         </div>
         <div className="col-span-4 flex flex-col gap-6">
           <PermissionAdmins />

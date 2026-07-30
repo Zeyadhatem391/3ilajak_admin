@@ -8,7 +8,7 @@ export type addAdminInput = {
 
 export async function addAdmin(data: addAdminInput) {
     const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/signup`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/signup`,
         {
             method: "POST",
             headers: {

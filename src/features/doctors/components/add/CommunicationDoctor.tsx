@@ -1,9 +1,16 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { IdCardLanyard, Mail, Phone, User } from "lucide-react";
+import { IdCardLanyard, Mail, Phone } from "lucide-react";
+import { AddDoctorsInput } from "../../schema/doctors";
+import { useFormContext } from "react-hook-form";
 
 function CommunicationDoctor() {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<AddDoctorsInput>();
+
   return (
     <div className="flex flex-col bg-white shadow rounded-2xl p-6">
       <div className="flex gap-1.5 items-center">
@@ -11,7 +18,7 @@ function CommunicationDoctor() {
         <span className="font-bold text-lg">Communication</span>
       </div>
       <div className="py-6">
-        <form className="space-y-8">
+        <div className="space-y-8">
           <div className="flex gap-4 justify-between">
             <div className="w-full">
               <Label htmlFor="phone" className="mb-2">
@@ -28,9 +35,15 @@ function CommunicationDoctor() {
                   id="phone"
                   type="text"
                   placeholder="+20 2 555 0111"
-                  className="h-11 pl-10 border-2 border-gray-200 "
+                  {...register("phone")}
+                  className="h-11 pl-10 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
                 />
               </div>
+              {errors.phone && (
+                <p className="mt-2 text-sm text-red-500">
+                  {errors.phone.message}
+                </p>
+              )}
             </div>
 
             <div className="w-full">
@@ -48,9 +61,15 @@ function CommunicationDoctor() {
                   id="email_com"
                   type="email"
                   placeholder="dr.smith@3ilajak.com"
-                  className="h-11 pl-10 border-2 border-gray-200 "
+                  {...register("email")}
+                  className="h-11 pl-10 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
                 />
               </div>
+              {errors.email && (
+                <p className="mt-2 text-sm text-red-500">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
           </div>
 
@@ -60,10 +79,20 @@ function CommunicationDoctor() {
             </Label>
 
             <div className="relative bg-gray-100 ">
-              <Textarea id="area" placeholder="Street name, City, State, ZIP" />
+              <Textarea
+                id="area"
+                {...register("address")}
+                placeholder="Street name, City, State, ZIP"
+                className="h-30 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
+              />
             </div>
           </div>
-        </form>
+          {errors.address && (
+            <p className="mt-2 text-sm text-red-500">
+              {errors.address.message}
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

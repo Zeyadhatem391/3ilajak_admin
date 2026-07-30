@@ -1,84 +1,82 @@
-import { unknown } from "@/assets/images/image";
 import HoverPrefetchLink from "@/shared/components/hover-prefetch/hover-prefetch-link";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, Pencil, Trash2 } from "lucide-react";
-import Image from "next/image";
-import { StaticImageData } from "next/image";
+import { Doctor } from "../api/getAllDoctors";
+import { Checkbox } from "@/components/ui/checkbox";
 
-interface Doctors {
-  id: number;
-  name: string;
-  email: string;
-  image: string | StaticImageData;
-  medicalLicense: string;
-  nationalID: string;
-  phone: string;
-  status: "active" | "inactive";
-}
-
-export const doctorsColumns: ColumnDef<Doctors>[] = [
+export const doctorsColumns: ColumnDef<Doctor>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected()}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     id: "name",
-    header: "DOCTOR NAME",
+    header: "DOCTOR",
     cell: ({ row }) => {
-      const patient = row.original;
+      const doctor = row.original;
 
       return (
-        <div className="flex items-center gap-3">
-          <Image
-            src={patient.image}
-            alt={patient.name}
-            width={40}
-            height={40}
-            className="rounded-full object-cover"
-          />
-
-          <div>
-            <p className="font-medium">{patient.name}</p>
-            <p className="text-sm text-gray-700">{patient.email}</p>
-          </div>
+        <div>
+          <p className="font-medium">{doctor.name}</p>
+          <p className="text-sm text-gray-700">{doctor.email}</p>
+          <p className="text-sm text-gray-700">Phone : {doctor.phone}</p>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "medicalLicense",
-    header: "Med. Lic.",
+    accessorKey: "medical_license",
+    header: "medical license",
     cell: ({ row }) => {
-      const patient = row.original;
+      const doctor = row.original;
 
       return (
         <div>
-          <p className="text-gray-700 text-md">#M.L-{patient.medicalLicense}</p>
+          <p className="text-gray-700 text-lg text-center">#MEL-{doctor.medical_license}</p>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "nationalID",
-    header: "National ID",
+    accessorKey: "age",
+    header: "age",
     cell: ({ row }) => {
-      const patient = row.original;
+      const doctor = row.original;
 
       return (
         <div>
-          <p className="text-gray-700 text-md">{patient.nationalID}</p>
+          <p className="text-gray-700 text-lg capitalize">{doctor.date_of_birth}</p>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "phone",
-    header: "phone",
+    accessorKey: "gender",
+    header: "gender",
     cell: ({ row }) => {
-      const patient = row.original;
+      const doctor = row.original;
 
       return (
         <div>
-          <p className="text-gray-700 text-md">{patient.phone}</p>
+          <p className="text-gray-700 text-lg">{doctor.gender}</p>
         </div>
       );
     },
@@ -127,57 +125,5 @@ export const doctorsColumns: ColumnDef<Doctors>[] = [
         </div>
       );
     },
-  },
-];
-export const doctors: Doctors[] = [
-  {
-    id: 1,
-    name: "Ahmed Ali",
-    email: "ahmed.ali@example.com",
-    image: unknown,
-    medicalLicense: "882913",
-    nationalID: "3051115123557",
-    phone: "2345678",
-    status: "active",
-  },
-  {
-    id: 2,
-    name: "Sara Mohamed",
-    email: "sara.m@example.com",
-    image: unknown,
-    medicalLicense: "1002",
-    nationalID: "3051115123557",
-    phone: "2345678",
-    status: "inactive",
-  },
-  {
-    id: 3,
-    name: "Omar Hassan",
-    email: "omar.h@example.com",
-    image: unknown,
-    medicalLicense: "1003",
-    nationalID: "3051115123557",
-    phone: "2345678",
-    status: "active",
-  },
-  {
-    id: 4,
-    name: "Mona Ibrahim",
-    email: "mona.i@example.com",
-    image: unknown,
-    medicalLicense: "1004",
-    nationalID: "3051115123557",
-    phone: "2345678",
-    status: "active",
-  },
-  {
-    id: 5,
-    name: "Youssef Adel",
-    email: "youssef.a@example.com",
-    image: unknown,
-    medicalLicense: "1005",
-    nationalID: "3051115123557",
-    phone: "2345678",
-    status: "inactive",
   },
 ];
