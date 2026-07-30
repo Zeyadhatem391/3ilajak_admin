@@ -1,14 +1,14 @@
 import { Button } from "@/components/ui/button";
 import DemoDoctors from "@/features/doctors/components/add/DemoDoctors";
+import FormDoctors from "@/features/doctors/components/add/FormDoctors";
 import PhoteDoctors from "@/features/doctors/components/add/PhoteDoctors";
 import StatusDoctors from "@/features/doctors/components/add/StatusDoctors";
-import FormDoctors from "@/features/doctors/components/FormDoctors";
 import { UserRoundCheck } from "lucide-react";
 
 function page() {
   return (
     <div className="flex flex-col gap-6">
-      <div className="grid grid-cols-12 items-start gap-6">
+      {/* <div className="grid grid-cols-12 items-start gap-6">
         <div className="col-span-8 flex flex-col gap-6">
           <FormDoctors />
         </div>
@@ -19,7 +19,7 @@ function page() {
 
           <PhoteDoctors />
         </div>
-      </div>
+      </div> */}
 
       <div className="flex gap-2 justify-end border-t-2 border-gray-400 pt-6">
         <Button className="h-11 w-30 text-xg text-gray-600 font-semibold cursor-pointer rounded-lg border border-gray-400">
