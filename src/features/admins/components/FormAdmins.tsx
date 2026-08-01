@@ -11,6 +11,7 @@ import { useMutation } from "@tanstack/react-query";
 import { updateAdmin, updateAdminInput } from "../api/updateAdmin";
 import { addAdmin, addAdminInput } from "../api/addAdmins";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 type AddAdminsInput = z.infer<typeof addAdmins>;
 type UpdateAdminsInput = z.infer<typeof updateAdmins>;
@@ -59,6 +60,12 @@ function FormAdmins({ mode = "add", adminId }: FormAdminsProps) {
         response,
       );
 
+      const message = isUpdate
+        ? "Admin updated successfully"
+        : "Admin added successfully";
+
+      toast.success(message);
+
       reset();
       router.push("/dashboard/admins");
     },
@@ -67,6 +74,11 @@ function FormAdmins({ mode = "add", adminId }: FormAdminsProps) {
         isUpdate ? "Failed to update admin" : "Failed to add admin",
         error,
       );
+
+      const message =
+        error instanceof Error ? error.message : "Something went wrong";
+
+      toast.error(message);
     },
   });
 
@@ -211,7 +223,15 @@ function FormAdmins({ mode = "add", adminId }: FormAdminsProps) {
           </div>
 
           <div className="flex gap-2 justify-end border-t-2 border-gray-400 pt-6">
-            <Button className="h-11 w-24 text-xg text-gray-600 font-semibold cursor-pointer rounded-lg border border-gray-400">
+            <Button
+              onClick={() => {
+                reset();
+                router.back();
+              }}
+              type="button"
+              disabled={isSubmitting}
+              className="h-11 w-24 text-xg text-gray-600 font-semibold cursor-pointer rounded-lg border border-gray-400"
+            >
               Cancel
             </Button>
             <Button

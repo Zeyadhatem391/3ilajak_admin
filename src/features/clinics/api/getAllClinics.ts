@@ -1,40 +1,43 @@
-import { Image } from "@/features/clinics/api/getAllClinics";
 import { cookies } from "next/headers";
 
-export interface Doctor {
+export interface Clinic {
     id: number;
     name: string;
-    email: string;
     phone: string;
-    password: string;
-    national_id: string;
-    medical_license: string;
-    clinic_id: number;
-    specialization_id: number;
-    gender: "male" | "female";
-    date_of_birth: string;
-    blood_type: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
     address: string;
-    status: "active" | "inactive" | "on_leave";
+    max_doctors: number;
+    payment_date: string;
+    status: "active" | "inactive";
     created_at: string;
     updated_at: string;
     images: Image[];
 }
 
-export interface DoctorResponse {
+export interface Image {
+    id: number;
+    filename: string;
+    imageable_id: number;
+    imageable_type: string;
+    created_at: string;
+    updated_at: string;
+    image_url:string
+}
+
+
+export interface ClinicResponse {
     status: boolean;
     message: string;
-    data: Doctor[];
+    data: Clinic[];
 
 }
 
-interface GetAllDoctorsParams {
+interface GetAllClinicParams {
     name?: string;
 }
 
-export async function getAllDoctors({
+export async function getAllClinics({
     name,
-}: GetAllDoctorsParams = {}): Promise<DoctorResponse> {
+}: GetAllClinicParams = {}): Promise<ClinicResponse> {
     const cookieStore = await cookies();
 
     const token = cookieStore.get("token")?.value;
@@ -51,10 +54,9 @@ export async function getAllDoctors({
 
     const queryString = params.toString();
 
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/admin/search-doctors${queryString ? `?${queryString}` : ""
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/admin/search-by-name${queryString ? `?${queryString}` : ""
         }`;
 
-    console.log("REQUEST URL:", url);
 
     const res = await fetch(url, {
         method: "GET",
@@ -68,7 +70,7 @@ export async function getAllDoctors({
 
     if (!res.ok) {
         throw new Error(
-            `Failed to fetch Doctor: ${res.status} - ${responseText}`,
+            `Failed to fetch Clinic: ${res.status} - ${responseText}`,
         );
     }
 

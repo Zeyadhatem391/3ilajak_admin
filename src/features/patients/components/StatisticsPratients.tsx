@@ -1,13 +1,14 @@
 import StatisticsCard from "@/shared/components/atoms/StatisticsCard";
 import { ChartColumnIncreasing, UserRoundCheck, Users } from "lucide-react";
+import { Patients } from "../api/getAllPatients";
 
-function StatisticsPratients() {
+function StatisticsPratients({patients}:{patients:Patients[]}) {
   return (
     <div className="grid grid-cols-3 gap-4">
     
       <StatisticsCard
         title="TOTAL PATIENTS"
-        desc="1,248"
+        desc={patients.length}
         icon={Users}
         color="bg-blue-400"
       />

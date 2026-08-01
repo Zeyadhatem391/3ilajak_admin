@@ -5,13 +5,14 @@ import {
   Hospital,
   Stethoscope,
 } from "lucide-react";
+import { Clinic } from "../api/getAllClinics";
 
-function StatisticsClinics() {
+function StatisticsClinics({ clinic }: { clinic: Clinic[] }) {
   return (
     <div className="grid grid-cols-4 gap-3">
       <StatisticsCard
         title="TOTAL CLINICS"
-        desc="24"
+        desc={clinic.length}
         icon={Hospital}
         color="bg-gray-300 text-blue-900"
       />

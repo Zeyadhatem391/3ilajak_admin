@@ -2,15 +2,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 import HoverPrefetchLink from "@/shared/components/hover-prefetch/hover-prefetch-link";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, Pencil, Trash2 } from "lucide-react";
+import { Clinic } from "../api/getAllClinics";
+import Image from "next/image";
+import { unknown } from "@/assets/images/image";
 
-interface Clinics {
-  id: number;
-  name: string;
-  admin: string;
-  address: string;
-}
-
-export const clinicsColumns: ColumnDef<Clinics>[] = [
+export const clinicsColumns: ColumnDef<Clinic>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -30,34 +26,56 @@ export const clinicsColumns: ColumnDef<Clinics>[] = [
     enableSorting: false,
     enableHiding: false,
   },
+
   {
-    id: "id",
-    header: "ID",
+    id: "clinic",
+    header: "clinic",
     cell: ({ row }) => {
       const clinic = row.original;
 
       return (
-        <div className="bg-blue-100 pl-3 py-1 rounded-lg">#CL-{clinic.id}</div>
+        <div className="flex items-center gap-3">
+          <Image
+            src={clinic.images?.[0]?.image_url || unknown}
+            alt={clinic.name}
+            width={40}
+            height={40}
+            className="rounded-full object-cover"
+          />
+
+          <div>
+            <p className="font-medium">{clinic.name}</p>
+          </div>
+        </div>
       );
     },
   },
-  {
-    id: "name",
-    header: "Clinic Name",
-    cell: ({ row }) => {
-      const patient = row.original;
 
-      return <p className="font-semibold text-lg">{patient.name}</p>;
+  {
+    accessorKey: "phone",
+    header: "phone",
+    cell: ({ row }) => {
+      const clinic = row.original;
+
+      return (
+        <div>
+          <p className="text-gray-700 text-md">{clinic.phone}</p>
+        </div>
+      );
     },
   },
 
   {
-    accessorKey: "admin",
-    header: "Admin",
+    accessorKey: "max_doctors",
+    header: "Max Doctors",
     cell: ({ row }) => {
-      const patient = row.original;
+      const clinic = row.original;
 
-      return <p className="text-gray-700 ">{patient.admin}</p>;
+      return (
+        <div>
+          <p className="text-gray-700 text-md">{clinic.max_doctors}</p>
+        </div>
+      );
     },
   },
 
@@ -65,11 +83,11 @@ export const clinicsColumns: ColumnDef<Clinics>[] = [
     accessorKey: "address",
     header: "Address",
     cell: ({ row }) => {
-      const patient = row.original;
+      const clinic = row.original;
 
       return (
         <div>
-          <p className="text-gray-700 text-md">{patient.address}</p>
+          <p className="text-gray-700 text-md">{clinic.address}</p>
         </div>
       );
     },
@@ -100,35 +118,7 @@ export const clinicsColumns: ColumnDef<Clinics>[] = [
     },
   },
 ];
-export const clinics: Clinics[] = [
-  {
-    id: 1,
-    name: "Al-Khair Hospital",
-    admin: "Ahmed Ali",
-    address: "Street 5, Ahmed Ali",
-  },
-  {
-    id: 2,
-    name: "Al-Khair Hospital",
-    admin: "Ahmed Ali",
-    address: "Street 5, Ahmed Ali",
-  },
-  {
-    id: 3,
-    name: "Al-Khair Hospital",
-    admin: "Ahmed Ali",
-    address: "Street 5, Ahmed Ali",
-  },
-  {
-    id: 4,
-    name: "Al-Khair Hospital",
-    admin: "Ahmed Ali",
-    address: "Street 5, Ahmed Ali",
-  },
-  {
-    id: 5,
-    name: "Al-Khair Hospital",
-    admin: "Ahmed Ali",
-    address: "Street 5, Ahmed Ali",
-  },
-];
+
+// const image = clinic.images?.[0]?.image_url;
+
+// console.log("image",)

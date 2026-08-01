@@ -3,6 +3,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import { Doctor } from "../api/getAllDoctors";
 import { Checkbox } from "@/components/ui/checkbox";
+import Image from "next/image";
+import { unknown } from "@/assets/images/image";
 
 export const doctorsColumns: ColumnDef<Doctor>[] = [
   {
@@ -31,10 +33,20 @@ export const doctorsColumns: ColumnDef<Doctor>[] = [
       const doctor = row.original;
 
       return (
-        <div>
-          <p className="font-medium">{doctor.name}</p>
-          <p className="text-sm text-gray-700">{doctor.email}</p>
-          <p className="text-sm text-gray-700">Phone : {doctor.phone}</p>
+        <div className="flex items-center gap-3">
+          <Image
+            src={doctor.images?.[0]?.image_url || unknown}
+            alt={doctor.name}
+            width={40}
+            height={40}
+            className="rounded-full object-cover"
+          />
+
+          <div>
+            <p className="font-medium">{doctor.name}</p>
+            <p className="text-sm text-gray-700">{doctor.email}</p>
+            <p className="text-sm text-gray-700">Phone : {doctor.phone}</p>
+          </div>
         </div>
       );
     },
@@ -48,7 +60,9 @@ export const doctorsColumns: ColumnDef<Doctor>[] = [
 
       return (
         <div>
-          <p className="text-gray-700 text-lg text-center">#MEL-{doctor.medical_license}</p>
+          <p className="text-gray-700 text-lg text-center">
+            #MEL-{doctor.medical_license}
+          </p>
         </div>
       );
     },
@@ -62,7 +76,9 @@ export const doctorsColumns: ColumnDef<Doctor>[] = [
 
       return (
         <div>
-          <p className="text-gray-700 text-lg capitalize">{doctor.date_of_birth}</p>
+          <p className="text-gray-700 text-lg capitalize">
+            {doctor.date_of_birth}
+          </p>
         </div>
       );
     },

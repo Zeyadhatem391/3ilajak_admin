@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import AppProviders from "@/providers/AppProviders";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "3ilajak Admin",
@@ -13,12 +14,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`h-full antialiased`}
-    >
+    <html lang="en" className={`h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <AppProviders>{children}</AppProviders>
+        <AppProviders>
+          {children}
+          <Toaster position="top-center" />
+        </AppProviders>
       </body>
     </html>
   );

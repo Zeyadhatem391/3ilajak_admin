@@ -10,8 +10,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Clinic } from "@/features/clinics/api/getAllClinics";
 
-function IdentityDoctor() {
+interface Props {
+  clinics: Clinic[];
+}
+
+
+function IdentityDoctor({ clinics }: Props) {
   const {
     register,
     watch,
@@ -166,33 +172,55 @@ function IdentityDoctor() {
           </div>
 
           <div className="flex gap-4 justify-between">
-            <div className="w-full">
+             <div className="w-full">
               <Label htmlFor="clinic_id" className="mb-2 uppercase">
-                clinic
+                Clinic
               </Label>
 
-              <div className="relative bg-gray-100 ">
-                <IdCardIcon
+              <div className="relative">
+                <Rainbow
                   size={18}
-                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  className="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 text-slate-400"
                 />
 
-                <Input
-                  id="clinic_id"
-                  type="number"
-                  placeholder=""
-                  {...register("clinic_id", {
-                    valueAsNumber: true,
-                  })}
-                  className="h-11 pl-10 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
-                />
+                <Select
+                  value={watch("clinic_id")?.toString()}
+                  onValueChange={(value) =>
+                    setValue("clinic_id", Number(value), {
+                      shouldValidate: true,
+                      shouldDirty: true,
+                    })
+                  }
+                >
+                  <SelectTrigger
+                    id="clinic_id"
+                    className="h-11 py-5 bg-gray-100 w-full border-2 border-gray-200 pl-10 focus-visible:border-gray-500 focus-visible:ring-0"
+                  >
+                    <SelectValue placeholder="Select Clinic" />
+                  </SelectTrigger>
+
+                  <SelectContent
+                    position="popper"
+                    side="bottom"
+                    align="start"
+                    sideOffset={4}
+                    className="bg-white"
+                  >
+                    {clinics.map((clinic) => (
+                      <SelectItem key={clinic.id} value={clinic.id.toString()}>
+                        {clinic.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
+
               {errors.clinic_id && (
                 <p className="mt-2 text-sm text-red-500">
                   {errors.clinic_id.message}
                 </p>
               )}
-            </div>
+            </div> 
 
             <div className="w-full">
               <Label htmlFor="specialization_id" className="mb-2 uppercase">

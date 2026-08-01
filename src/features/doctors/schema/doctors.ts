@@ -57,6 +57,9 @@ export const addDoctors = z.object({
     "inactive",
     "on_leave",
   ]),
+
+  photo: z.instanceof(File).nullable().optional(),
+
 });
 
 export type AddDoctorsInput = z.infer<typeof addDoctors>;

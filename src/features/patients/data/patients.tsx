@@ -3,19 +3,9 @@ import HoverPrefetchLink from "@/shared/components/hover-prefetch/hover-prefetch
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
-import { StaticImageData } from "next/image";
+import { Patients } from "../api/getAllPatients";
 
-interface Product {
-  id: number;
-  name: string;
-  email: string;
-  image: string | StaticImageData;
-  patientId: string;
-  lastVisit: string;
-  status: "active" | "inactive";
-}
-
-export const productColumns: ColumnDef<Product>[] = [
+export const patientColumns: ColumnDef<Patients>[] = [
   {
     id: "profile",
     header: "PROFILE",
@@ -25,7 +15,7 @@ export const productColumns: ColumnDef<Product>[] = [
       return (
         <div className="flex items-center gap-3">
           <Image
-            src={patient.image}
+            src={patient.images?.[0]?.image_url || unknown}
             alt={patient.name}
             width={40}
             height={40}
@@ -42,28 +32,43 @@ export const productColumns: ColumnDef<Product>[] = [
   },
 
   {
-    accessorKey: "patientId",
-    header: "PATIENT ID",
+    accessorKey: "phone",
+    header: "phone",
     cell: ({ row }) => {
       const patient = row.original;
 
       return (
         <div>
-          <p className="text-gray-700 text-md">#PAT-{patient.patientId}</p>
+          <p className="text-gray-700 text-md">{patient.phone}</p>
+        </div>
+      );
+    },
+  },
+
+
+   {
+    accessorKey: "Gender",
+    header: "Gender",
+    cell: ({ row }) => {
+      const patient = row.original;
+
+      return (
+        <div>
+          <p className="text-gray-700 text-md">{patient.Gender}</p>
         </div>
       );
     },
   },
 
   {
-    accessorKey: "lastVisit",
-    header: "LAST VISIT",
+    accessorKey: "address",
+    header: "address",
     cell: ({ row }) => {
       const patient = row.original;
 
       return (
         <div>
-          <p className="text-gray-700 text-md">{patient.lastVisit}</p>
+          <p className="text-gray-700 text-md">{patient.address}</p>
         </div>
       );
     },
@@ -112,52 +117,5 @@ export const productColumns: ColumnDef<Product>[] = [
         </div>
       );
     },
-  },
-];
-export const products: Product[] = [
-  {
-    id: 1,
-    name: "Ahmed Ali",
-    email: "ahmed.ali@example.com",
-    image: unknown,
-    patientId: "882913",
-    lastVisit: "2026-07-15",
-    status: "active",
-  },
-  {
-    id: 2,
-    name: "Sara Mohamed",
-    email: "sara.m@example.com",
-    image: unknown,
-    patientId: "1002",
-    lastVisit: "2026-07-12",
-    status: "inactive",
-  },
-  {
-    id: 3,
-    name: "Omar Hassan",
-    email: "omar.h@example.com",
-    image: unknown,
-    patientId: "1003",
-    lastVisit: "2026-07-10",
-    status: "active",
-  },
-  {
-    id: 4,
-    name: "Mona Ibrahim",
-    email: "mona.i@example.com",
-    image: unknown,
-    patientId: "1004",
-    lastVisit: "2026-07-08",
-    status: "active",
-  },
-  {
-    id: 5,
-    name: "Youssef Adel",
-    email: "youssef.a@example.com",
-    image: unknown,
-    patientId: "1005",
-    lastVisit: "2026-07-05",
-    status: "inactive",
   },
 ];
