@@ -42,11 +42,6 @@ export const menus = [
         link: "/dashboard/appointments",
     },
     {
-        icon: BellDot,
-        name: "Notifications",
-        link: "/dashboard/notifications",
-    },
-    {
         icon: CircleUserRound,
         name: "Profile",
         link: "/dashboard/profile",

@@ -39,7 +39,7 @@ export const patientColumns: ColumnDef<Patients>[] = [
 
       return (
         <div>
-          <p className="text-gray-700 text-md">{patient.phone}</p>
+          <p className="text-gray-700 text-md">{patient.Phone}</p>
         </div>
       );
     },
@@ -68,7 +68,7 @@ export const patientColumns: ColumnDef<Patients>[] = [
 
       return (
         <div>
-          <p className="text-gray-700 text-md">{patient.address}</p>
+          <p className="text-gray-700 text-md truncate w-40">{patient.Address}</p>
         </div>
       );
     },

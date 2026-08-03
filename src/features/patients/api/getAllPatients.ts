@@ -5,14 +5,14 @@ export interface Patients {
   name: string;
   email: string;
   password: string;
-  phone: string;
+  Phone: string;
   Date_Birth: string;
   patient_id: string;
   last_visit: string;
   status: "active" | "inactive";
   Gender: string;
   Blood_Group: string;
-  address: string;
+  Address: string;
   created_at: string;
   updated_at: string;
   images: Image[];
