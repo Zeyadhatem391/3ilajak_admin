@@ -1,10 +1,11 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import HoverPrefetchLink from "@/shared/components/hover-prefetch/hover-prefetch-link";
 import { ColumnDef } from "@tanstack/react-table";
-import { Eye, Pencil, Trash2 } from "lucide-react";
+import { Eye, Pencil } from "lucide-react";
 import { Clinic } from "../api/getAllClinics";
 import Image from "next/image";
 import { unknown } from "@/assets/images/image";
+import DeleteClinicButton from "../components/DeleteClinicButton";
 
 export const clinicsColumns: ColumnDef<Clinic>[] = [
   {
@@ -110,9 +111,7 @@ export const clinicsColumns: ColumnDef<Clinic>[] = [
               <Pencil className="h-6 w-6" />
             </button>
           </HoverPrefetchLink>
-          <button className="rounded-md cursor-pointer  text-red-900">
-            <Trash2 className="h-6 w-6" />
-          </button>
+          <DeleteClinicButton clinicId={clinic.id} />
         </div>
       );
     },

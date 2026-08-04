@@ -5,6 +5,7 @@ import { Doctor } from "../api/getAllDoctors";
 import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
 import { unknown } from "@/assets/images/image";
+import DeleteDoctorButton from "../components/DeleteDoctorButton";
 
 export const doctorsColumns: ColumnDef<Doctor>[] = [
   {
@@ -135,9 +136,7 @@ export const doctorsColumns: ColumnDef<Doctor>[] = [
               <Pencil className="h-6 w-6" />
             </button>
           </HoverPrefetchLink>
-          <button className="rounded-md cursor-pointer  text-red-900">
-            <Trash2 className="h-6 w-6" />
-          </button>
+          <DeleteDoctorButton doctorId={doctor.id} />
         </div>
       );
     },

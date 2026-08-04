@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { Patients } from "../api/getAllPatients";
+import DeletePatientButton from "../components/DeletePatientButton";
 
 export const patientColumns: ColumnDef<Patients>[] = [
   {
@@ -45,8 +46,7 @@ export const patientColumns: ColumnDef<Patients>[] = [
     },
   },
 
-
-   {
+  {
     accessorKey: "Gender",
     header: "Gender",
     cell: ({ row }) => {
@@ -68,7 +68,9 @@ export const patientColumns: ColumnDef<Patients>[] = [
 
       return (
         <div>
-          <p className="text-gray-700 text-md truncate w-40">{patient.Address}</p>
+          <p className="text-gray-700 text-md truncate w-40">
+            {patient.Address}
+          </p>
         </div>
       );
     },
@@ -111,9 +113,7 @@ export const patientColumns: ColumnDef<Patients>[] = [
               <Pencil className="h-6 w-6" />
             </button>
           </HoverPrefetchLink>
-          <button className="rounded-md cursor-pointer  text-red-900">
-            <Trash2 className="h-6 w-6" />
-          </button>
+          <DeletePatientButton patientId={patient.id} />
         </div>
       );
     },
