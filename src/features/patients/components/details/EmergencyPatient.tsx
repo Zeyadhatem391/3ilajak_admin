@@ -1,4 +1,6 @@
-function EmergencyPatient() {
+import { PatientResponse } from "../../api/getPatient";
+
+function EmergencyPatient({patient}:{patient:PatientResponse}) {
   return (
     <div className="flex flex-col gap-4 rounded-xl bg-blue-800 p-6 text-white shadow">
       <p className="text-lg font-bold">

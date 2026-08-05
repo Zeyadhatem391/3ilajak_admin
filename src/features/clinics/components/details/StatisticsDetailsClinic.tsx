@@ -1,33 +1,33 @@
 import StatisticsCard from "@/shared/components/atoms/StatisticsCard";
 import {
-  ClipboardClock,
   Eye,
   Stethoscope,
   UserRoundPlus,
   UserStar,
 } from "lucide-react";
 import Link from "next/link";
+import { ClinicResponse } from "../../api/getClinic";
 
-function StatisticsDetailsClinic() {
+function StatisticsDetailsClinic({ clinic }: { clinic: ClinicResponse }) {
   return (
     <div className="grid grid-cols-4 gap-3">
       <StatisticsCard
         title="ACTIVE ADMINS"
-        desc="12"
+        desc={clinic.active_admins}
         icon={UserStar}
         color="bg-gray-300 text-blue-900"
       />
 
       <StatisticsCard
         title="TOTAL DOCTORS"
-        desc="42"
+        desc={clinic.total_doctors}
         icon={Stethoscope}
         color="bg-green-200 text-green-700"
       />
 
       <StatisticsCard
         title="TODAY'S VISITS"
-        desc="156"
+        desc={clinic.todays_visits}
         icon={Eye}
         color="bg-blue-200 text-blue-700"
       />

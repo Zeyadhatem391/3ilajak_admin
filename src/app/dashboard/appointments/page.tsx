@@ -1,8 +1,13 @@
+import { getAllAppointment } from "@/features/appointment/api/getAllAppointment";
 import AppointmentTable from "@/features/appointment/components/AppointmentTable";
 import AppointmentToolbar from "@/features/appointment/components/AppointmentToolbar";
 import TitlePage from "@/shared/components/atoms/TitlePage";
 
-function page() {
+async function page() {
+  
+    const response = await getAllAppointment();
+
+     const appointment = response.data;
   return (
      <div className="flex flex-col gap-6">
       <TitlePage
@@ -12,7 +17,7 @@ function page() {
 
       <AppointmentToolbar />
 
-      <AppointmentTable />
+      <AppointmentTable appointment={appointment}/>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { Cake, FileUser, Mail, Map, Phone } from "lucide-react";
+import { DoctorResponse } from "../../api/getDoctor";
 
-function InfoDector() {
+function InfoDector({doctor}:{doctor:DoctorResponse}) {
   return (
     <div className="bg-white rounded-xl shadow p-7 flex flex-col gap-7 ">
       <div className="flex gap-1.5 items-center">
@@ -14,7 +15,7 @@ function InfoDector() {
           </div>
           <div className="flex flex-col ">
             <p className="font-semibold text-gray-700 text-sm">Phone Number</p>
-            <span className="font-semibold ">+966 50 123 4567</span>
+            <span className="font-semibold ">{doctor.phone}</span>
           </div>
         </div>
         <div className="flex gap-3 items-center">
@@ -23,7 +24,7 @@ function InfoDector() {
           </div>
           <div className="flex flex-col ">
             <p className="font-semibold text-gray-700 text-sm">Email Address</p>
-            <span className="font-semibold ">s.alfayed@3ilajak.com</span>
+            <span className="font-semibold ">{doctor.email}</span>
           </div>
         </div>
 
@@ -34,7 +35,7 @@ function InfoDector() {
           <div className="flex flex-col ">
             <p className="font-semibold text-gray-700 text-sm">Address</p>
             <span className="font-semibold ">
-              42nd Healthcare Ave, Medical District, Riyadh, KSA
+              {doctor.address}
             </span>
           </div>
         </div>
@@ -45,7 +46,7 @@ function InfoDector() {
           </div>
           <div className="flex flex-col ">
             <p className="font-semibold text-gray-700 text-sm">Date of Birth</p>
-            <span className="font-semibold ">12 Oct 1985 (38 Years)</span>
+            <span className="font-semibold ">{doctor.date_of_birth}</span>
           </div>
         </div>
       </div>

@@ -14,12 +14,14 @@ import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import AddPhotoDoctor from "./AddPhotoDoctor";
+import { Specializations } from "@/features/specializations/api/getAllSpecializations";
 
 interface Props {
   clinics: Clinic[];
+  specializations: Specializations[];
 }
 
-export default function AddDoctorPage({ clinics }: Props) {
+export default function AddDoctorPage({ clinics, specializations }: Props) {
   const router = useRouter();
 
   const methods = useForm<AddDoctorsInput>({
@@ -60,7 +62,7 @@ export default function AddDoctorPage({ clinics }: Props) {
         <form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
           <div className="grid grid-cols-12 items-start gap-6">
             <div className="col-span-8 flex flex-col gap-6">
-              <FormDoctors clinics={clinics} />
+              <FormDoctors clinics={clinics} specializations={specializations}/>
             </div>
 
             <div className="col-span-4 flex flex-col gap-8">

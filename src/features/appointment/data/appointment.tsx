@@ -1,22 +1,17 @@
 import { ColumnDef } from "@tanstack/react-table";
-
-interface Appointment {
-  id: number;
-  patient: string;
-  doctor: string;
-  clinic: string;
-  date: string;
-  status: "active" | "inactive";
-}
+import { Appointment } from "../api/getAllAppointment";
+import { formatDate } from "@/shared/components/atoms/formatDate";
 
 export const appointmentColumns: ColumnDef<Appointment>[] = [
   {
     id: "patient",
-    header: "Patient",
+    header: "patient",
     cell: ({ row }) => {
-      const patient = row.original;
+      const appointment = row.original;
 
-      return <p className="font-semibold">{patient.patient}</p>;
+      return (
+        <p className="font-semibold capitalize">{appointment.patient.name}</p>
+      );
     },
   },
 
@@ -24,9 +19,11 @@ export const appointmentColumns: ColumnDef<Appointment>[] = [
     id: "doctor",
     header: "doctor",
     cell: ({ row }) => {
-      const patient = row.original;
+      const appointment = row.original;
 
-      return <p className="font-semibold">{patient.doctor}</p>;
+      return (
+        <p className="font-semibold capitalize">{appointment.doctor.name}</p>
+      );
     },
   },
 
@@ -34,9 +31,11 @@ export const appointmentColumns: ColumnDef<Appointment>[] = [
     id: "clinic",
     header: "clinic",
     cell: ({ row }) => {
-      const patient = row.original;
+      const appointment = row.original;
 
-      return <p className="font-medium">{patient.clinic}</p>;
+      return (
+        <p className="font-medium capitalize">{appointment.clinic.name}</p>
+      );
     },
   },
 
@@ -44,12 +43,26 @@ export const appointmentColumns: ColumnDef<Appointment>[] = [
     accessorKey: "date",
     header: "date",
     cell: ({ row }) => {
-      const patient = row.original;
+      const appointment = row.original;
 
       return (
-        <div>
-          <p className="text-gray-700 text-md">{patient.date}</p>
-        </div>
+        <span className="text-gray-700 text-lg">
+          {formatDate(appointment.appointment_date)}
+        </span>
+      );
+    },
+  },
+
+  {
+    accessorKey: "created_at",
+    header: "created at",
+    cell: ({ row }) => {
+      const appointment = row.original;
+
+      return (
+        <span className="text-gray-700 text-lg">
+          {formatDate(appointment.created_at)}
+        </span>
       );
     },
   },
@@ -63,7 +76,7 @@ export const appointmentColumns: ColumnDef<Appointment>[] = [
       return (
         <span
           className={`rounded-full px-4 py-1 font-medium ${
-            status === "active"
+            status === "Active"
               ? "bg-green-400 text-green-900"
               : "bg-red-400 text-red-900"
           }`}
@@ -72,47 +85,5 @@ export const appointmentColumns: ColumnDef<Appointment>[] = [
         </span>
       );
     },
-  },
-];
-export const appointment: Appointment[] = [
-  {
-    id: 1,
-    patient: "Ahmed Ali",
-    doctor: "Zeyad Hatem",
-    clinic: "Al-Khair Hospital",
-    date: "Oct 21,2023",
-    status: "active",
-  },
-  {
-    id: 2,
-    patient: "Ahmed Ali",
-    doctor: "Zeyad Hatem",
-    clinic: "Al-Khair Hospital",
-    date: "Oct 21,2023",
-    status: "inactive",
-  },
-  {
-    id: 3,
-    patient: "Ahmed Ali",
-    doctor: "Zeyad Hatem",
-    clinic: "Al-Khair Hospital",
-    date: "Oct 21,2023",
-    status: "active",
-  },
-  {
-    id: 4,
-    patient: "Ahmed Ali",
-    doctor: "Zeyad Hatem",
-    clinic: "Al-Khair Hospital",
-    date: "Oct 21,2023",
-    status: "active",
-  },
-  {
-    id: 5,
-    patient: "Ahmed Ali",
-    doctor: "Zeyad Hatem",
-    clinic: "Al-Khair Hospital",
-    date: "Oct 21,2023",
-    status: "inactive",
   },
 ];

@@ -1,11 +1,26 @@
 import { Button } from "@/components/ui/button";
+import { getClinicAdmins } from "@/features/clinic-admins/api/getClinicAdmins";
 import AnalysisClinicAdmins from "@/features/clinic-admins/components/AnalysisClinicAdmins";
 import TableClinicAdmins from "@/features/clinic-admins/components/TableClinicAdmins";
 import TitlePage from "@/shared/components/atoms/TitlePage";
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
 
-function page() {
+interface PageProps {
+  searchParams: Promise<{
+    name?: string;
+  }>;
+}
+
+async function page({ searchParams }: PageProps) {
+  const { name } = await searchParams;
+
+  const response = await getClinicAdmins({
+    name,
+  });
+
+  const clinicAdmins = response.data.data;
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex justify-between items-center">
@@ -21,9 +36,9 @@ function page() {
         </Link>
       </div>
 
-      <AnalysisClinicAdmins />
+      <AnalysisClinicAdmins clinicAdmins={clinicAdmins}/>
 
-      <TableClinicAdmins />
+      <TableClinicAdmins clinicAdmins={clinicAdmins}/>
     </div>
   );
 }

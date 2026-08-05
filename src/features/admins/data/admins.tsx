@@ -3,29 +3,10 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Pencil } from "lucide-react";
 import { Admin } from "../api/getAllAdmins";
 import { formatDate } from "@/shared/components/atoms/formatDate";
-import { Checkbox } from "@/components/ui/checkbox";
 import DeleteAdminButton from "../components/DeleteAdminButton";
 
 export const adminsColumns: ColumnDef<Admin>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+ 
 
   {
     id: "name",

@@ -24,7 +24,7 @@ export const patientColumns: ColumnDef<Patients>[] = [
           />
 
           <div>
-            <p className="font-medium">{patient.name}</p>
+            <p className="font-medium capitalize">{patient.name}</p>
             <p className="text-sm text-gray-700">{patient.email}</p>
           </div>
         </div>
@@ -54,7 +54,7 @@ export const patientColumns: ColumnDef<Patients>[] = [
 
       return (
         <div>
-          <p className="text-gray-700 text-md">{patient.Gender}</p>
+          <p className="text-gray-700 text-md capitalize">{patient.Gender}</p>
         </div>
       );
     },
@@ -68,7 +68,7 @@ export const patientColumns: ColumnDef<Patients>[] = [
 
       return (
         <div>
-          <p className="text-gray-700 text-md truncate w-40">
+          <p className="text-gray-700 text-md truncate w-40 capitalize">
             {patient.Address}
           </p>
         </div>

@@ -52,7 +52,7 @@ export default function AppointmentToolbar() {
             shadow-none
             ring-0
             focus-visible:ring-2
-            focus-visible:ring-emerald-500
+            focus-visible:ring-gray-500
           "
         />
       </div>
@@ -72,7 +72,7 @@ export default function AppointmentToolbar() {
             bg-gray-50
             shadow-none
             focus:ring-2
-            focus:ring-emerald-500
+            focus:ring-gray-500
           "
         >
           <SelectValue />

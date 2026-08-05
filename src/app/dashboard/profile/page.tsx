@@ -4,7 +4,6 @@ import ProfileCard from "@/features/profile/components/ProfileCard";
 import ProfileInfo from "@/features/profile/components/ProfileInfo";
 import RecentActivity from "@/features/profile/components/RecentActivity";
 import RequestDeactivation from "@/features/profile/components/RequestDeactivation";
-import StatisticsProfile from "@/features/profile/components/StatisticsProfile";
 
 export default function Page() {
   return (
@@ -12,7 +11,6 @@ export default function Page() {
       <div className="col-span-4 flex flex-col gap-6">
         <ProfileCard />
         <ProfileInfo />
-        <StatisticsProfile />
       </div>
 
       <div className="col-span-8 flex flex-col gap-6">

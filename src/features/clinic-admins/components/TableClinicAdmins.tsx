@@ -1,11 +1,11 @@
 "use client"
 import { Input } from "@/components/ui/input";
 import DataTable from "@/shared/components/data-table/DataTable";
-import DataTablePagination from "@/shared/components/data-table/DataTablePagination";
 import { Search } from "lucide-react";
-import { clinicAdmins, clinicAdminsColumns } from "../data/clinicAdmins";
+import {  clinicAdminsColumns } from "../data/clinicAdmins";
+import { ClinicAdmins } from "../api/getClinicAdmins";
 
-function TableClinicAdmins() {
+function TableClinicAdmins({clinicAdmins}:{clinicAdmins:ClinicAdmins[]}) {
   return (
     <div>
       <div className="bg-white p-6 shadow border border-gray-300 rounded-t-xl">

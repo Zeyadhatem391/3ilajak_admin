@@ -1,9 +1,9 @@
 "use client";
 import DataTable from "@/shared/components/data-table/DataTable";
-import DataTablePagination from "@/shared/components/data-table/DataTablePagination";
-import { appointment, appointmentColumns } from "../data/appointment";
+import {appointmentColumns } from "../data/appointment";
+import { Appointment } from "../api/getAllAppointment";
 
-function AppointmentTable() {
+function AppointmentTable({appointment}:{appointment:Appointment[]}) {
   return (
     <div>
       <DataTable columns={appointmentColumns} data={appointment} />

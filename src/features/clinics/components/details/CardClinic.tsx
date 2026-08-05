@@ -1,8 +1,9 @@
 import { unknown } from "@/assets/images/image";
 import { MapPinIcon, Phone } from "lucide-react";
 import Image from "next/image";
+import { ClinicResponse } from "../../api/getClinic";
 
-function CardClinic() {
+function CardClinic({ clinic }: { clinic: ClinicResponse }) {
   return (
     <div className="flex w-full gap-8 rounded-xl bg-white p-8 shadow">
       <div className="shrink-0">
@@ -17,12 +18,10 @@ function CardClinic() {
 
       <div className="flex flex-1 flex-col gap-5">
         <div className="flex items-center justify-between gap-8">
-          <h2 className="text-3xl font-bold text-gray-900">
-            City Central Medical Center
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-900">{clinic.name}</h2>
 
-          <span className="rounded-full border border-green-900 bg-green-100 px-4 py-1.5 text-sm font-semibold text-green-900">
-            Active
+          <span className="rounded-full capitalize border border-green-900 bg-green-100 px-4 py-1.5 text-sm font-semibold text-green-900">
+            {clinic.status}
           </span>
         </div>
 
@@ -35,15 +34,13 @@ function CardClinic() {
           <div className="flex items-center gap-2">
             <MapPinIcon className="h-5 w-5 shrink-0 text-blue-600" />
 
-            <span className="font-medium text-gray-600">
-              123 Health Blvd, Downtown Sector
-            </span>
+            <span className="font-medium text-gray-600">{clinic.address}</span>
           </div>
 
           <div className="flex items-center gap-2">
             <Phone className="h-5 w-5 shrink-0 text-blue-600" />
 
-            <span className="font-medium text-gray-600">+1 (555) 982-3400</span>
+            <span className="font-medium text-gray-600">{clinic.phone}</span>
           </div>
         </div>
       </div>

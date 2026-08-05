@@ -1,42 +1,80 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Contact } from "lucide-react";
+import { Contact, Hospital } from "lucide-react";
 import z from "zod";
 import { addClinicAdmins, updateClinicAdmins } from "../../schema/clinicAdmins";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Clinic } from "@/features/clinics/api/getAllClinics";
+import { Admin } from "@/features/admins/api/getAllAdmins";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { addClinicAdmin } from "../../api/addClinicAdmin";
 
-type AddClinicAdminsInput = z.infer<typeof addClinicAdmins>;
+export type AddClinicAdminsInput = z.infer<typeof addClinicAdmins>;
 type UpdateClinicAdminsInput = z.infer<typeof updateClinicAdmins>;
 
 type FormClinicAdminsProps = {
   mode?: "add" | "update";
+  clinics: Clinic[];
+  admins: Admin[];
 };
 
-function FormClinicAdmins({ mode = "add" }: FormClinicAdminsProps) {
+function FormClinicAdmins({
+  mode = "add",
+  clinics,
+  admins,
+}: FormClinicAdminsProps) {
+  const router = useRouter();
   const isUpdate = mode === "update";
 
-  const schema = isUpdate ? addClinicAdmins : updateClinicAdmins;
+  // const schema = isUpdate ? addClinicAdmins : updateClinicAdmins;
 
-  type FormInput = AddClinicAdminsInput | UpdateClinicAdminsInput;
+  // type FormInput = AddClinicAdminsInput | UpdateClinicAdminsInput;
 
   const {
     register,
     handleSubmit,
+    watch,
+    reset,
+    setValue,
     formState: { errors, isSubmitting },
-  } = useForm<FormInput>({
-    resolver: zodResolver(schema),
+  } = useForm<AddClinicAdminsInput>({
+    resolver: zodResolver(addClinicAdmins),
     mode: "onBlur",
+    defaultValues: {
+      status: "active",
+    },
   });
 
-  const onSubmit = (data: FormInput) => {
-    if (isUpdate) {
-      console.log("Update Clinic Admin:", data);
-    } else {
-      console.log("Add Clinic Admin:", data);
+  const onSubmit = async (data: AddClinicAdminsInput) => {
+      console.log(data);
+  console.log(typeof data.admin_id);
+    try {
+      const response = await addClinicAdmin(data);
+
+      console.log("API Success:", response);
+
+      toast.success("Clinic Admin added successfully");
+
+      reset();
+
+      router.push("/dashboard/clinic-admins");
+      router.refresh();
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Something went wrong";
+
+      toast.error(message);
     }
   };
 
@@ -53,7 +91,7 @@ function FormClinicAdmins({ mode = "add" }: FormClinicAdminsProps) {
       </div>
       <div className="p-6">
         <form className="space-y-8" onSubmit={handleSubmit(onSubmit)}>
-          <div className="w-full flex flex-col gap-1">
+          <div className="w-full space-y-0.5">
             <Label htmlFor="administrator" className="text-md">
               Select System Administrator
             </Label>
@@ -62,21 +100,52 @@ function FormClinicAdmins({ mode = "add" }: FormClinicAdminsProps) {
               Choose an existing system admin to delegate to a specific clinic.
             </p>
 
-            <div className=" bg-gray-100 ">
-              <Input
-                id="administrator"
-                type="text"
-                placeholder="Search or select an administrator..."
-                className="h-11 pl-5 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
-                {...register("administrator")}
+            <div className="relative">
+              <Hospital
+                size={18}
+                className="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 text-slate-400"
               />
+
+              <Select
+                value={watch("admin_id")?.toString()}
+                onValueChange={(value) =>
+                  setValue("admin_id", Number(value), {
+                    shouldValidate: true,
+                    shouldDirty: true,
+                  })
+                }
+              >
+                <SelectTrigger
+                  id="administrator"
+                  className="h-11 py-5 bg-gray-100 w-full border-2 border-gray-200 pl-10 focus-visible:border-gray-500 focus-visible:ring-0"
+                >
+                  <SelectValue placeholder="Select System Administrator" />
+                </SelectTrigger>
+
+                <SelectContent
+                  position="popper"
+                  side="bottom"
+                  align="start"
+                  sideOffset={4}
+                  className="bg-white"
+                >
+                  {admins.map((admin) => (
+                    <SelectItem key={admin.id} value={admin.id.toString()}>
+                      {admin.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
-            {errors.administrator && (
-              <p className="text-red-800">{errors.administrator.message}</p>
+
+            {errors.admin_id && (
+              <p className="mt-2 text-sm text-red-500">
+                {errors.admin_id.message}
+              </p>
             )}
           </div>
 
-          <div className="w-full flex flex-col gap-1">
+          <div className="w-full space-y-0.5">
             <Label htmlFor="clinic" className="text-md">
               Target Clinic Facility
             </Label>
@@ -86,17 +155,48 @@ function FormClinicAdmins({ mode = "add" }: FormClinicAdminsProps) {
               for.
             </p>
 
-            <div className=" bg-gray-100 ">
-              <Input
-                id="clinic"
-                type="text"
-                placeholder="Select an active clinic..."
-                className="h-11 pl-5 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
-                {...register("clinic")}
+            <div className="relative">
+              <Hospital
+                size={18}
+                className="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 text-slate-400"
               />
+
+              <Select
+                value={watch("clinic_id")?.toString()}
+                onValueChange={(value) =>
+                  setValue("clinic_id", Number(value), {
+                    shouldValidate: true,
+                    shouldDirty: true,
+                  })
+                }
+              >
+                <SelectTrigger
+                  id="clinic"
+                  className="h-11 py-5 bg-gray-100 w-full border-2 border-gray-200 pl-10 focus-visible:border-gray-500 focus-visible:ring-0"
+                >
+                  <SelectValue placeholder="Target Clinic Facility" />
+                </SelectTrigger>
+
+                <SelectContent
+                  position="popper"
+                  side="bottom"
+                  align="start"
+                  sideOffset={4}
+                  className="bg-white"
+                >
+                  {clinics.map((clinic) => (
+                    <SelectItem key={clinic.id} value={clinic.id.toString()}>
+                      {clinic.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
-            {errors.clinic && (
-              <p className="text-red-800">{errors.clinic.message}</p>
+
+            {errors.clinic_id && (
+              <p className="mt-2 text-sm text-red-500">
+                {errors.clinic_id.message}
+              </p>
             )}
           </div>
 
@@ -113,13 +213,22 @@ function FormClinicAdmins({ mode = "add" }: FormClinicAdminsProps) {
               placeholder="Describe scope of responsibility or specific authorization levels..."
               {...register("note")}
             />
+
             {errors.note && (
-              <p className="text-red-800">{errors.note.message}</p>
+              <p className="mt-2 text-sm text-red-500">{errors.note.message}</p>
             )}
           </div>
 
           <div className="flex gap-2 justify-end border-t-2 border-gray-400 pt-6 mt-5">
-            <Button className="h-11 w-24 text-xg text-gray-600 font-semibold cursor-pointer rounded-lg border border-gray-400">
+            <Button
+              onClick={() => {
+                reset();
+                router.back();
+              }}
+              type="button"
+              disabled={isSubmitting}
+              className="h-11 w-24 text-xg text-gray-600 font-semibold cursor-pointer rounded-lg border border-gray-400"
+            >
               Cancel
             </Button>
             <Button

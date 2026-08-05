@@ -5,7 +5,7 @@ function page() {
   return (
     <div className="grid grid-cols-12 items-start gap-6">
       <div className="col-span-8 flex flex-col gap-6">
-        <FormClinicAdmins mode="update" />
+        {/* <FormClinicAdmins mode="update" /> */}
       </div>
       <div className="col-span-4 flex flex-col gap-6">
         <InfoClinicAdmins />

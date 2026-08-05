@@ -9,25 +9,6 @@ import DeleteDoctorButton from "../components/DeleteDoctorButton";
 
 export const doctorsColumns: ColumnDef<Doctor>[] = [
   {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
     id: "name",
     header: "DOCTOR",
     cell: ({ row }) => {
@@ -44,26 +25,10 @@ export const doctorsColumns: ColumnDef<Doctor>[] = [
           />
 
           <div>
-            <p className="font-medium">{doctor.name}</p>
+            <p className="font-medium capitalize">{doctor.name}</p>
             <p className="text-sm text-gray-700">{doctor.email}</p>
             <p className="text-sm text-gray-700">Phone : {doctor.phone}</p>
           </div>
-        </div>
-      );
-    },
-  },
-
-  {
-    accessorKey: "medical_license",
-    header: "medical license",
-    cell: ({ row }) => {
-      const doctor = row.original;
-
-      return (
-        <div>
-          <p className="text-gray-700 text-lg text-center">
-            #MEL-{doctor.medical_license}
-          </p>
         </div>
       );
     },
@@ -93,7 +58,20 @@ export const doctorsColumns: ColumnDef<Doctor>[] = [
 
       return (
         <div>
-          <p className="text-gray-700 text-lg">{doctor.gender}</p>
+          <p className="text-gray-700 text-lg capitalize">{doctor.gender}</p>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "address",
+    header: "address",
+    cell: ({ row }) => {
+      const doctor = row.original;
+
+      return (
+        <div>
+          <p className="text-gray-700 text-lg text-center capitalize">{doctor.address}</p>
         </div>
       );
     },

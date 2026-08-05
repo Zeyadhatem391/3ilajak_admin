@@ -1,12 +1,13 @@
 import AnalysisCard from "@/shared/components/atoms/AnalysisCard";
 import { CircleCheck, Hospital, TriangleAlert, Users } from "lucide-react";
+import { ClinicAdmins } from "../api/getClinicAdmins";
 
-function AnalysisClinicAdmins() {
+function AnalysisClinicAdmins({clinicAdmins}:{clinicAdmins:ClinicAdmins[]}) {
   return (
     <div className="grid grid-cols-4 gap-4">
       <AnalysisCard
         title="TOTAL CLINIC ADMINS"
-        desc="1,248"
+        desc={clinicAdmins.length}
         analysis="+12%"
         icon={Users}
         color="bg-gray-200 text-gray-800"
