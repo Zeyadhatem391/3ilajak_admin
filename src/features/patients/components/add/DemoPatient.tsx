@@ -75,8 +75,8 @@ export default function DemoPatient() {
             sideOffset={4}
             className="bg-white"
           >
-            <SelectItem value="male">Male</SelectItem>
-            <SelectItem value="female">Female</SelectItem>
+            <SelectItem value="Male">Male</SelectItem>
+            <SelectItem value="Female">Female</SelectItem>
           </SelectContent>
         </Select>
 

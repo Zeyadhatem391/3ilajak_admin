@@ -21,7 +21,7 @@ export interface DoctorResponse {
     status: "active" | "inactive";
     image: Image[],
     national_id: string;
-    specialization_id: string;
+    specialization_id: number;
     gender: "male" | "female";
     date_of_birth: string;
     blood_type: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";

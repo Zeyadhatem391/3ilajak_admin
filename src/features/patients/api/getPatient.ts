@@ -21,7 +21,8 @@ export interface PatientResponse {
     status: "active" | "inactive";
     Images: Image[],
     national_id: string;
-    Gender: "male" | "female";
+    patient_id:string;
+    Gender: "Male" | "Female";
     Date_Birth: string;
     Blood_Group: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
 }

@@ -11,3 +11,4 @@ export default async function Page() {
 
   return <AddDoctorPage clinics={response.data} specializations={res.data.data}/>;
 }
+

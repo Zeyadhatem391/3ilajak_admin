@@ -1,8 +1,7 @@
 import HoverPrefetchLink from "@/shared/components/hover-prefetch/hover-prefetch-link";
 import { ColumnDef } from "@tanstack/react-table";
-import { Eye, Pencil, Trash2 } from "lucide-react";
+import { Eye, Pencil } from "lucide-react";
 import { Doctor } from "../api/getAllDoctors";
-import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
 import { unknown } from "@/assets/images/image";
 import DeleteDoctorButton from "../components/DeleteDoctorButton";

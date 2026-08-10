@@ -16,12 +16,31 @@ import { CirclePlus, CircleX, Info } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
-import { addClinic, AddClinicInput } from "../../schema/clinic";
-import { addClinics } from "../../api/addClinics";
+import {
+  addClinic,
+  AddClinicInput,
+  updateClinic,
+  UpdateClinicInput,
+} from "../../schema/clinic";
 import { toast } from "sonner";
+import { addClinics } from "../../api/addClinics";
+import { updateClinics } from "../../api/updateClinics";
+import { ClinicResponse } from "../../api/getClinic";
 
-function FormClinics() {
+interface FormClinicProps {
+  mode?: "add" | "update";
+  clinicId?: number;
+  clinic?: ClinicResponse;
+}
+
+function FormClinics({ mode = "add", clinicId, clinic }: FormClinicProps) {
   const router = useRouter();
+
+  const isUpdate = mode === "update";
+
+  const schema = isUpdate ? updateClinic : addClinic;
+
+  type FormInput = AddClinicInput | UpdateClinicInput;
 
   const {
     register,
@@ -31,9 +50,28 @@ function FormClinics() {
     watch,
     control,
     formState: { errors, isSubmitting },
-  } = useForm<AddClinicInput>({
-    resolver: zodResolver(addClinic),
+  } = useForm<FormInput>({
+    resolver: zodResolver(schema),
+
     mode: "onBlur",
+
+    defaultValues: isUpdate
+      ? {
+          name: clinic?.name ?? "",
+          phone: clinic?.phone ?? "",
+          address: clinic?.address ?? "",
+          max_doctors: clinic?.total_doctors ?? 0,
+          // payment_date: clinic?.[0]?.payment_date ?? "",
+          status: clinic?.status ?? "active",
+        }
+      : {
+          name: "",
+          phone: "",
+          address: "",
+          max_doctors: 0,
+          payment_date: "",
+          status: "active",
+        },
   });
 
   const photo = watch("photo");
@@ -41,13 +79,28 @@ function FormClinics() {
   const previewUrl =
     photo instanceof File ? URL.createObjectURL(photo) : unknown.src;
 
-  const onSubmit = async (data: AddClinicInput) => {
+  const onSubmit = async (data: FormInput) => {
     try {
-      const response = await addClinics(data);
+      if (isUpdate) {
+        if (!clinicId) {
+          throw new Error("Clinic ID is required");
+        }
 
-      console.log("API Success:", response);
+        const response = await updateClinics(
+          clinicId,
+          data as UpdateClinicInput,
+        );
 
-      toast.success("Clinic added successfully");
+        console.log("API Update Success:", response);
+
+        toast.success("Clinic updated successfully");
+      } else {
+        const response = await addClinics(data as AddClinicInput);
+
+        console.log("API Add Success:", response);
+
+        toast.success("Clinic added successfully");
+      }
 
       reset();
 
@@ -60,7 +113,6 @@ function FormClinics() {
       toast.error(message);
     }
   };
-
   return (
     <div className="py-6">
       <form className="space-y-8" onSubmit={handleSubmit(onSubmit)}>
@@ -266,7 +318,13 @@ function FormClinics() {
                 className="bg-blue-800 h-11 w-full flex gap-2 font-semibold text-lg rounded-lg text-white cursor-pointer"
               >
                 <CirclePlus className="w-7 h-7" />
-                <span> Add Clinic</span>
+                <span>
+                  {isSubmitting
+                    ? "Saving..."
+                    : isUpdate
+                      ? "Update Clinic"
+                      : "Add Clinic"}
+                </span>
               </Button>
               <Button
                 onClick={() => {

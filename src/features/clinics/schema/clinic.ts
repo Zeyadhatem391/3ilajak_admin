@@ -29,6 +29,10 @@ export const addClinic = z.object({
    photo: z.instanceof(File).nullable().optional(),
 });
 
+export const updateClinic = addClinic.partial();
+
 export type AddClinicInput = z.infer<typeof addClinic>;
+export type UpdateClinicInput = z.infer<typeof updateClinic>;
+
 
 

@@ -3,25 +3,28 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, Lock, Mail, User, UserPlus } from "lucide-react";
-import z from "zod";
-import { addAdmins, updateAdmins } from "../schema/admins";
+import {
+  addAdmins,
+  AddAdminsInput,
+  updateAdmins,
+  UpdateAdminsInput,
+} from "../schema/admins";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { updateAdmin, updateAdminInput } from "../api/updateAdmin";
 import { addAdmin, addAdminInput } from "../api/addAdmins";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-
-type AddAdminsInput = z.infer<typeof addAdmins>;
-type UpdateAdminsInput = z.infer<typeof updateAdmins>;
+import { AdminResponse } from "../api/getAdmin";
+import { updateAdmin } from "../api/updateAdmin";
 
 type FormAdminsProps = {
   mode?: "add" | "update";
   adminId?: number;
+  admin?: AdminResponse;
 };
 
-function FormAdmins({ mode = "add", adminId }: FormAdminsProps) {
+function FormAdmins({ mode = "add", adminId, admin }: FormAdminsProps) {
   const router = useRouter();
   const isUpdate = mode === "update";
 
@@ -37,6 +40,15 @@ function FormAdmins({ mode = "add", adminId }: FormAdminsProps) {
   } = useForm<FormInput>({
     resolver: zodResolver(schema),
     mode: "onBlur",
+    defaultValues: isUpdate
+      ? {
+          name: admin?.data.name ?? "",
+          email: admin?.data.email ?? "",
+        }
+      : {
+          name: "",
+          email: "",
+        },
   });
 
   const { mutate, isPending } = useMutation({
@@ -46,9 +58,7 @@ function FormAdmins({ mode = "add", adminId }: FormAdminsProps) {
           throw new Error("Admin ID is required");
         }
 
-        return updateAdmin(data as updateAdminInput, {
-          id: adminId,
-        });
+        return updateAdmin(adminId, data as UpdateAdminsInput);
       }
 
       return addAdmin(data as addAdminInput);

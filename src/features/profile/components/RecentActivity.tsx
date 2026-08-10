@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { LogIn, RotateCcw, UserPlus } from "@/assets/icon/icons";
 
 function RecentActivity() {
@@ -6,7 +5,6 @@ function RecentActivity() {
     <div className="bg-white shadow rounded-lg">
       <div className="p-5 border-b border-gray-300 flex justify-between">
         <p className="text-xl font-semibold">Recent Activity</p>
-        <Button className="font-semibold text-blue-700">VIEW ALL</Button>
       </div>
 
       <div className="p-5 border-b border-gray-300 flex justify-between items-center">

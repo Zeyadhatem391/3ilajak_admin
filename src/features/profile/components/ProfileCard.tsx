@@ -1,7 +1,8 @@
+import { User } from "@/app/dashboard/profile/page";
 import { unknown } from "@/assets/images/image";
 import Image from "next/image";
 
-function ProfileCard() {
+function ProfileCard({ admin }: { admin: User }) {
   return (
     <div className="flex flex-col gap-4 bg-white p-6 shadow rounded-lg">
       <Image
@@ -13,13 +14,13 @@ function ProfileCard() {
       />
 
       <div className="text-center">
-        <p className="text-xl font-bold text-gray-900">Dr. Elias Vance</p>
+        <p className="text-xl font-bold text-gray-900">{admin.name}</p>
         <p className="text-blue-800">System Administrator</p>
       </div>
 
       <div className="flex justify-center gap-2">
-        <span className="rounded-xl bg-green-500 px-3 py-1 text-xs font-semibold text-white">
-          ACTIVE
+        <span className="rounded-xl bg-green-500 px-3 py-1 text-xs font-semibold text-white capitalize">
+          {admin.status}
         </span>
 
         <span className="rounded-xl bg-gray-500 px-3 py-1 text-xs font-semibold text-white">

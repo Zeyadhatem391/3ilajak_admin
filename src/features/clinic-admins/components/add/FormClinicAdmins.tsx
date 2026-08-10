@@ -2,13 +2,12 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Contact, Hospital } from "lucide-react";
+import { Contact, Eye, Hospital, Lock, Mail, User } from "lucide-react";
 import z from "zod";
 import { addClinicAdmins, updateClinicAdmins } from "../../schema/clinicAdmins";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Clinic } from "@/features/clinics/api/getAllClinics";
-import { Admin } from "@/features/admins/api/getAllAdmins";
 import {
   Select,
   SelectContent,
@@ -19,52 +18,82 @@ import {
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { addClinicAdmin } from "../../api/addClinicAdmin";
+import { Input } from "@/components/ui/input";
+import { ClinicAdminResponse } from "../../api/getClinicAdmin";
+import { updateClinicAdmin } from "../../api/updateClinicAdmin";
 
 export type AddClinicAdminsInput = z.infer<typeof addClinicAdmins>;
-type UpdateClinicAdminsInput = z.infer<typeof updateClinicAdmins>;
+export type UpdateClinicAdminsInput = z.infer<typeof updateClinicAdmins>;
 
 type FormClinicAdminsProps = {
   mode?: "add" | "update";
   clinics: Clinic[];
-  admins: Admin[];
+  clinicAdmin?: ClinicAdminResponse;
+  clinicAdminId?: number;
 };
 
 function FormClinicAdmins({
   mode = "add",
   clinics,
-  admins,
+  clinicAdminId,
+  clinicAdmin,
 }: FormClinicAdminsProps) {
   const router = useRouter();
   const isUpdate = mode === "update";
 
-  // const schema = isUpdate ? addClinicAdmins : updateClinicAdmins;
+  const schema = isUpdate ? addClinicAdmins : updateClinicAdmins;
 
-  // type FormInput = AddClinicAdminsInput | UpdateClinicAdminsInput;
+  type FormInput = AddClinicAdminsInput | UpdateClinicAdminsInput;
 
   const {
     register,
     handleSubmit,
     watch,
     reset,
+    control,
     setValue,
     formState: { errors, isSubmitting },
-  } = useForm<AddClinicAdminsInput>({
-    resolver: zodResolver(addClinicAdmins),
+  } = useForm<FormInput>({
+    resolver: zodResolver(schema),
     mode: "onBlur",
-    defaultValues: {
-      status: "active",
-    },
+
+    defaultValues: isUpdate
+      ? {
+          name: clinicAdmin?.data.name ?? "",
+          Email: clinicAdmin?.data.Email ?? "",
+          status: clinicAdmin?.data.status ?? "Active",
+          clinic_id: clinicAdmin?.data.clinic_id ?? 0,
+        }
+      : {
+          name: "",
+          Email: "",
+          clinic_id: 0,
+          status: "Active",
+        },
   });
 
-  const onSubmit = async (data: AddClinicAdminsInput) => {
-      console.log(data);
-  console.log(typeof data.admin_id);
+  const onSubmit = async (data: FormInput) => {
     try {
-      const response = await addClinicAdmin(data);
+      if (isUpdate) {
+        if (!clinicAdminId) {
+          throw new Error("Clinic ID is required");
+        }
 
-      console.log("API Success:", response);
+        const response = await updateClinicAdmin(
+          clinicAdminId,
+          data as UpdateClinicAdminsInput,
+        );
 
-      toast.success("Clinic Admin added successfully");
+        console.log("API Update Success:", response);
+
+        toast.success("Clinic updated successfully");
+      } else {
+        const response = await addClinicAdmin(data as AddClinicAdminsInput);
+
+        console.log("API Success:", response);
+
+        toast.success("Clinic Admin added successfully");
+      }
 
       reset();
 
@@ -75,6 +104,8 @@ function FormClinicAdmins({
         error instanceof Error ? error.message : "Something went wrong";
 
       toast.error(message);
+
+      console.log("error", message);
     }
   };
 
@@ -91,58 +122,138 @@ function FormClinicAdmins({
       </div>
       <div className="p-6">
         <form className="space-y-8" onSubmit={handleSubmit(onSubmit)}>
-          <div className="w-full space-y-0.5">
-            <Label htmlFor="administrator" className="text-md">
-              Select System Administrator
-            </Label>
+          <div className="flex gap-4 justify-between">
+            <div className="w-full">
+              <Label htmlFor="email" className="mb-2">
+                Full Name
+              </Label>
 
-            <p className="text-gray-600">
-              Choose an existing system admin to delegate to a specific clinic.
-            </p>
+              <div className="relative bg-gray-100 ">
+                <User
+                  size={18}
+                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                />
 
-            <div className="relative">
-              <Hospital
-                size={18}
-                className="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 text-slate-400"
-              />
-
-              <Select
-                value={watch("admin_id")?.toString()}
-                onValueChange={(value) =>
-                  setValue("admin_id", Number(value), {
-                    shouldValidate: true,
-                    shouldDirty: true,
-                  })
-                }
-              >
-                <SelectTrigger
-                  id="administrator"
-                  className="h-11 py-5 bg-gray-100 w-full border-2 border-gray-200 pl-10 focus-visible:border-gray-500 focus-visible:ring-0"
-                >
-                  <SelectValue placeholder="Select System Administrator" />
-                </SelectTrigger>
-
-                <SelectContent
-                  position="popper"
-                  side="bottom"
-                  align="start"
-                  sideOffset={4}
-                  className="bg-white"
-                >
-                  {admins.map((admin) => (
-                    <SelectItem key={admin.id} value={admin.id.toString()}>
-                      {admin.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="e.g. Sarah Mitchell"
+                  className="h-11 pl-10 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
+                  {...register("name")}
+                />
+              </div>
+              {errors.name && (
+                <p className="mt-2 text-sm text-red-500">
+                  {errors.name.message}
+                </p>
+              )}
             </div>
 
-            {errors.admin_id && (
-              <p className="mt-2 text-sm text-red-500">
-                {errors.admin_id.message}
-              </p>
-            )}
+            <div className="w-full">
+              <Label htmlFor="email" className="mb-2">
+                Email Address
+              </Label>
+
+              <div className="relative bg-gray-100 ">
+                <Mail
+                  size={18}
+                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                />
+
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="dr.smith@3ilajak.com"
+                  className="h-11 pl-10 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
+                  {...register("Email")}
+                />
+              </div>
+              {errors.Email && (
+                <p className="mt-2 text-sm text-red-500">
+                  {errors.Email.message}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="flex gap-4 justify-between">
+            <div className="w-full">
+              <Label htmlFor="password" className="mb-2">
+                Security Password
+              </Label>
+
+              <div className="relative bg-gray-100">
+                <Lock
+                  size={18}
+                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                />
+
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  className="h-11 pl-10 pr-10 border-2 border-gray-200 focus-visible:border-gray-500 focus-visible:ring-0"
+                  {...register("password")}
+                />
+
+                <button
+                  type="button"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-slate-700"
+                >
+                  <Eye size={18} />
+                </button>
+              </div>
+              {errors.password && (
+                <p className="mt-2 text-sm text-red-500">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+
+            <div className="w-full">
+              <Label htmlFor="status" className="mb-2">
+                STATUS
+              </Label>
+
+              <Controller
+                name="status"
+                control={control}
+                render={({ field }) => (
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <SelectTrigger className="w-full border border-gray-200 py-5 bg-gray-100 focus-visible:border-gray-500 focus-visible:ring-0">
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+
+                    <SelectContent
+                      position="popper"
+                      side="bottom"
+                      align="start"
+                      sideOffset={4}
+                      className="bg-white"
+                    >
+                      <SelectItem value="Active">
+                        <span className="flex items-center gap-2">
+                          <span className="h-2 w-2 rounded-full bg-green-500" />
+                          Active
+                        </span>
+                      </SelectItem>
+
+                      <SelectItem value="Inactive">
+                        <span className="flex items-center gap-2">
+                          <span className="h-2 w-2 rounded-full bg-red-500" />
+                          Inactive
+                        </span>
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+              {errors.status && (
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.status.message}
+                </p>
+              )}
+            </div>
           </div>
 
           <div className="w-full space-y-0.5">

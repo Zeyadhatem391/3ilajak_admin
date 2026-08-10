@@ -68,6 +68,8 @@ export async function getAllClinics({
 
     const responseText = await res.text();
 
+   
+
     if (!res.ok) {
         throw new Error(
             `Failed to fetch Clinic: ${res.status} - ${responseText}`,

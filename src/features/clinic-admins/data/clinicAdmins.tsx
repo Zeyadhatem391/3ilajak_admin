@@ -1,6 +1,6 @@
 import HoverPrefetchLink from "@/shared/components/hover-prefetch/hover-prefetch-link";
 import { ColumnDef } from "@tanstack/react-table";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { ClinicAdmins } from "../api/getClinicAdmins";
 import DeleteClinicAdminButton from "../components/DeleteClinicAdminButton";
 
@@ -13,8 +13,8 @@ export const clinicAdminsColumns: ColumnDef<ClinicAdmins>[] = [
 
       return (
         <div>
-          <p className="font-medium capitalize">{clinicAdmins.admin.name}</p>
-          <p className="text-sm text-gray-700">{clinicAdmins.admin.email}</p>
+          <p className="font-medium capitalize">{clinicAdmins.name}</p>
+          <p className="text-sm text-gray-700">{clinicAdmins.Email}</p>
         </div>
       );
     },

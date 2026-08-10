@@ -6,7 +6,12 @@ import { addDoctor } from "@/features/doctors/api/addDoctor";
 import DemoDoctors from "@/features/doctors/components/add/DemoDoctors";
 import FormDoctors from "@/features/doctors/components/add/FormDoctors";
 import StatusDoctors from "@/features/doctors/components/add/StatusDoctors";
-import { addDoctors, AddDoctorsInput } from "@/features/doctors/schema/doctors";
+import {
+  addDoctors,
+  AddDoctorsInput,
+  updateDoctors,
+  UpdateDoctorsInput,
+} from "@/features/doctors/schema/doctors";
 import Breadcrumb from "@/shared/components/atoms/Breadcrumb";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserRoundCheck } from "lucide-react";
@@ -15,18 +20,50 @@ import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import AddPhotoDoctor from "./AddPhotoDoctor";
 import { Specializations } from "@/features/specializations/api/getAllSpecializations";
+import { DoctorResponse } from "../../api/getDoctor";
+import { updateDoctor } from "../../api/updateDoctor";
 
 interface Props {
   clinics: Clinic[];
   specializations: Specializations[];
+  mode?: "add" | "update";
+  doctorId?: number;
+  doctor?: DoctorResponse;
 }
 
-export default function AddDoctorPage({ clinics, specializations }: Props) {
+export default function AddDoctorPage({
+  clinics,
+  specializations,
+  mode = "add",
+  doctor,
+  doctorId,
+}: Props) {
   const router = useRouter();
 
-  const methods = useForm<AddDoctorsInput>({
-    resolver: zodResolver(addDoctors),
+  const isUpdate = mode === "update";
+
+  const schema = isUpdate ? updateDoctors : addDoctors;
+
+  type FormInput = AddDoctorsInput | UpdateDoctorsInput;
+
+  const methods = useForm<FormInput>({
+    resolver: zodResolver(schema),
     mode: "onBlur",
+    defaultValues: isUpdate
+      ? {
+          name: doctor?.name ?? "",
+          address: doctor?.address ?? "",
+          email: doctor?.email ?? "",
+          gender: doctor?.gender ?? "male",
+          specialization_id:doctor?.specialization_id ?? 0,
+        }
+      : {
+          name: "",
+          address: "",
+          email: "",
+          gender: "male",
+          specialization_id:0,
+        },
   });
 
   const {
@@ -34,13 +71,28 @@ export default function AddDoctorPage({ clinics, specializations }: Props) {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = async (data: AddDoctorsInput) => {
+  const onSubmit = async (data: FormInput) => {
     try {
-      const response = await addDoctor(data);
+      if (isUpdate) {
+        if (!doctorId) {
+          throw new Error("doctor ID is required");
+        }
 
-      console.log("API Success:", response);
+        const response = await updateDoctor(
+          doctorId,
+          data as UpdateDoctorsInput,
+        );
 
-      toast.success("Doctor added successfully");
+        console.log("API Update Success:", response);
+
+        toast.success("Patient updated successfully");
+      } else {
+        const response = await addDoctor(data as AddDoctorsInput);
+
+        console.log("API Success:", response);
+
+        toast.success("Doctor added successfully");
+      }
 
       reset();
 
@@ -62,12 +114,15 @@ export default function AddDoctorPage({ clinics, specializations }: Props) {
         <form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
           <div className="grid grid-cols-12 items-start gap-6">
             <div className="col-span-8 flex flex-col gap-6">
-              <FormDoctors clinics={clinics} specializations={specializations}/>
+              <FormDoctors
+                clinics={clinics}
+                specializations={specializations}
+              />
             </div>
 
             <div className="col-span-4 flex flex-col gap-8">
               <DemoDoctors />
-              <StatusDoctors />
+              {/* <StatusDoctors /> */}
 
               <AddPhotoDoctor />
             </div>

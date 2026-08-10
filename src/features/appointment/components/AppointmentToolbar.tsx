@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { format } from "date-fns";
 import { CalendarIcon, Search } from "lucide-react";
+import { useQueryState, parseAsString } from "nuqs";
 
 import { cn } from "@/lib/utils";
 
@@ -24,25 +25,37 @@ import {
 } from "@/components/ui/select";
 
 const placeholders = {
-  user: "Search by user...",
+  patient: "Search by patient...",
   doctor: "Search by doctor...",
   clinic: "Search by clinic...",
-  prescription: "Search by prescription...",
-};
+} as const;
+
+type SearchType = keyof typeof placeholders;
 
 export default function AppointmentToolbar() {
-  const [searchType, setSearchType] =
-    useState<keyof typeof placeholders>("user");
+  const [searchType, setSearchType] = useQueryState(
+    "type",
+    parseAsString.withDefault("patient")
+  );
+
+  const [name, setName] = useQueryState(
+    "name",
+    parseAsString.withDefault("")
+  );
 
   const [date, setDate] = useState<Date>();
 
   return (
-    <div className="flex flex-wrap items-center gap-4 rounded-2xl bg-white p-5 shadow-sm">
-      <div className="relative min-w-[320px] flex-1">
-        <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+    <div className="flex flex-wrap items-center gap-3 bg-white shadow p-6 rounded-xl">
+      <div className="relative flex-1 min-w-[260px]">
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
 
         <Input
-          placeholder={placeholders[searchType]}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder={
+            placeholders[(searchType as SearchType) ?? "patient"]
+          }
           className="
             h-11
             rounded-xl
@@ -59,9 +72,7 @@ export default function AppointmentToolbar() {
 
       <Select
         value={searchType}
-        onValueChange={(value) =>
-          setSearchType(value as keyof typeof placeholders)
-        }
+        onValueChange={(value) => setSearchType(value)}
       >
         <SelectTrigger
           className="
@@ -78,13 +89,10 @@ export default function AppointmentToolbar() {
           <SelectValue />
         </SelectTrigger>
 
-        <SelectContent className="rounded-xl border-0 shadow-xl bg-white">
-          <SelectItem value="user">User</SelectItem>
+        <SelectContent className="rounded-xl border-0 bg-white shadow-xl">
+          <SelectItem value="patient">Patient</SelectItem>
           <SelectItem value="doctor">Doctor</SelectItem>
           <SelectItem value="clinic">Clinic</SelectItem>
-          <SelectItem value="prescription">
-            Prescription
-          </SelectItem>
         </SelectContent>
       </Select>
 
@@ -104,13 +112,12 @@ export default function AppointmentToolbar() {
 
         <PopoverContent
           align="end"
-          className="w-auto rounded-xl p-0 shadow-xl bg-white"
+          className="w-auto rounded-xl bg-white p-0 shadow-xl"
         >
           <Calendar
             mode="single"
             selected={date}
             onSelect={setDate}
-            
           />
         </PopoverContent>
       </Popover>

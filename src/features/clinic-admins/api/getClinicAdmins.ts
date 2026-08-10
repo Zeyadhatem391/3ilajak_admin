@@ -1,24 +1,21 @@
+import { Admin } from "@/features/admins/api/getAllAdmins";
 import { Patients } from "@/features/patients/api/getAllPatients";
 import { cookies } from "next/headers";
 
 
 export interface ClinicAdmins {
     id: number;
-    admin_id: number;
+    name: string;
+    Email: string;
+    password: string;
     clinic_id: number;
     note: string;
     status: string;
     created_at: string;
     updated_at: string;
-
-
+    admin: Admin[];
     patients: Patients[];
-    admin: {
-        id: number;
-        name: string;
-        email: string;
 
-    }
     clinic: {
         id: number;
         name: string;
@@ -58,9 +55,11 @@ export async function getClinicAdmins({
         params.set("name", name.trim());
     }
 
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/admin/GetAdminClinic`;
+    const queryString = params.toString();
 
-    console.log("REQUEST URL:", url);
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/admin/GetAdminClinic${queryString ? `?${queryString}` : ""
+        }`;
+
 
     const res = await fetch(url, {
         method: "GET",

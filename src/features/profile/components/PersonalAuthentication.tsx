@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { ShieldCheck } from "@/assets/icon/icons";
 
@@ -16,9 +15,6 @@ function PersonalAuthentication() {
             Last changed: 3 months ago. We recommend a change every 6 months.
           </p>
         </div>
-        <Button className="px-4 py-5 text-lg border border-gray-400">
-          Change Password
-        </Button>
       </div>
 
       <div className="p-5 border-b border-gray-300 flex justify-around gap-3 items-center">

@@ -1,6 +1,6 @@
-import { UpdateAdminsInput } from "../schema/admins";
+import { UpdateDoctorsInput } from "../schema/doctors";
 
-export async function updateAdmin(adminId?: number, data?: UpdateAdminsInput) {
+export async function updateDoctor(doctorId?: number, data?: UpdateDoctorsInput) {
     const rawToken = document.cookie
         .split("; ")
         .find((row) => row.startsWith("token="))
@@ -14,7 +14,7 @@ export async function updateAdmin(adminId?: number, data?: UpdateAdminsInput) {
     }
 
     const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/update-admin/${adminId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/update/${doctorId}`,
         {
             method: "PUT",
             headers: {
@@ -29,7 +29,7 @@ export async function updateAdmin(adminId?: number, data?: UpdateAdminsInput) {
     const result = await res.json();
 
     if (!res.ok) {
-        throw new Error(result.message || "Update admin failed");
+        throw new Error(result.message || "Update clinic failed");
     }
 
     return result;

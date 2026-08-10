@@ -1,36 +1,29 @@
-import { Button } from "@/components/ui/button";
-import DemoDoctors from "@/features/doctors/components/add/DemoDoctors";
-import FormDoctors from "@/features/doctors/components/add/FormDoctors";
-import PhoteDoctors from "@/features/doctors/components/add/PhoteDoctors";
-import StatusDoctors from "@/features/doctors/components/add/StatusDoctors";
-import { UserRoundCheck } from "lucide-react";
+import { getAllClinics } from "@/features/clinics/api/getAllClinics";
+import { getDoctor } from "@/features/doctors/api/getDoctor";
+import AddDoctorPage from "@/features/doctors/components/add/AddDoctorPage";
+import { getAllSpecializations } from "@/features/specializations/api/getAllSpecializations";
 
-function page() {
-  return (
-    <div className="flex flex-col gap-6">
-      {/* <div className="grid grid-cols-12 items-start gap-6">
-        <div className="col-span-8 flex flex-col gap-6">
-          <FormDoctors />
-        </div>
-        <div className="col-span-4 flex flex-col gap-8">
-          <DemoDoctors />
-          <StatusDoctors />
 
-          <PhoteDoctors />
-        </div>
-      </div> */}
-
-      <div className="flex gap-2 justify-end border-t-2 border-gray-400 pt-6">
-        <Button className="h-11 w-30 text-xg text-gray-600 font-semibold cursor-pointer rounded-lg border border-gray-400">
-          Discard Changes
-        </Button>
-        <Button className="bg-blue-800 h-11 w-58 flex gap-2 font-semibold text-lg rounded-lg text-white cursor-pointer">
-          <UserRoundCheck className="w-7 h-7" />
-          <span> Complete Registration</span>
-        </Button>
-      </div>
-    </div>
-  );
+interface PageProps {
+  params: Promise<{
+    doctorId: string;
+  }>;
 }
 
-export default page;
+
+export default async function Page({ params }: PageProps) {
+
+  const { doctorId } = await params;
+
+  const id = Number(doctorId);
+
+  const doctor = await getDoctor(id);
+
+  const response = await getAllClinics({
+    name: "",
+  });
+
+  const res = await getAllSpecializations();
+
+  return <AddDoctorPage clinics={response.data} specializations={res.data.data} doctorId={id} doctor={doctor}/>;
+}
