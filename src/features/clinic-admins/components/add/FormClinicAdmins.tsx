@@ -61,14 +61,14 @@ function FormClinicAdmins({
       ? {
           name: clinicAdmin?.data.name ?? "",
           Email: clinicAdmin?.data.Email ?? "",
-          status: clinicAdmin?.data.status ?? "Active",
+          status: clinicAdmin?.data.status ?? "active",
           clinic_id: clinicAdmin?.data.clinic_id ?? 0,
         }
       : {
           name: "",
           Email: "",
           clinic_id: 0,
-          status: "Active",
+          status: "active",
         },
   });
 
@@ -231,14 +231,14 @@ function FormClinicAdmins({
                       sideOffset={4}
                       className="bg-white"
                     >
-                      <SelectItem value="Active">
+                      <SelectItem value="active">
                         <span className="flex items-center gap-2">
                           <span className="h-2 w-2 rounded-full bg-green-500" />
                           Active
                         </span>
                       </SelectItem>
 
-                      <SelectItem value="Inactive">
+                      <SelectItem value="inactive">
                         <span className="flex items-center gap-2">
                           <span className="h-2 w-2 rounded-full bg-red-500" />
                           Inactive

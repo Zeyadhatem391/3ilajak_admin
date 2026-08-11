@@ -51,7 +51,7 @@ export const updateClinicAdmins = z.object({
   note: z.string().optional(),
 
   status: z
-    .enum(["Active", "Inactive"], {
+    .enum(["active", "inactive"], {
       error: "Status is required",
     })
     .optional(),
