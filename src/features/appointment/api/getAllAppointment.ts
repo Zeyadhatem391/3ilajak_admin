@@ -1,6 +1,5 @@
 import { cookies } from "next/headers";
 
-
 export interface Appointment {
     id: number;
     patient_id: number;
@@ -30,15 +29,16 @@ export interface Appointment {
 export interface AppointmentResponse {
     current_page: number;
     data: Appointment[];
-
 }
 
 interface GetAllAppointmentParams {
     name?: string;
+    type?: string;
 }
 
 export async function getAllAppointment({
     name,
+    type,
 }: GetAllAppointmentParams = {}): Promise<AppointmentResponse> {
     const cookieStore = await cookies();
 
@@ -54,7 +54,15 @@ export async function getAllAppointment({
         params.set("name", name.trim());
     }
 
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/admin/appointments`;
+    if (type?.trim()) {
+        params.set("type", type.trim());
+    }
+
+    const queryString = params.toString();
+
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/admin/appointments${
+        queryString ? `?${queryString}` : ""
+    }`;
 
     console.log("REQUEST URL:", url);
 

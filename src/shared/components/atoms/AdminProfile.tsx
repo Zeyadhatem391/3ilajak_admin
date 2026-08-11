@@ -99,7 +99,7 @@ function AdminProfile() {
       <DropdownMenuContent align="end" className="w-42 bg-white">
         <DropdownMenuItem asChild>
           <Link
-            href="/profile"
+            href="/dashboard/profile"
             className="flex cursor-pointer items-center gap-2"
           >
             <User className="h-5 w-5" />

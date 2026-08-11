@@ -3,13 +3,21 @@ import AppointmentTable from "@/features/appointment/components/AppointmentTable
 import AppointmentToolbar from "@/features/appointment/components/AppointmentToolbar";
 import TitlePage from "@/shared/components/atoms/TitlePage";
 
-async function page() {
-  
-    const response = await getAllAppointment();
+interface PageProps {
+  searchParams: Promise<{
+    name?: string;
+    type?: string;
+  }>;
+}
 
-     const appointment = response.data;
+async function page({ searchParams }: PageProps) {
+  const { name, type } = await searchParams;
+
+  const response = await getAllAppointment({ name, type });
+
+  const appointment = response.data;
   return (
-     <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6">
       <TitlePage
         title="Appointment Management"
         decs="Monitor and schedule patient consultations across all clinics."
@@ -17,7 +25,7 @@ async function page() {
 
       <AppointmentToolbar />
 
-      <AppointmentTable appointment={appointment}/>
+      <AppointmentTable appointment={appointment} />
     </div>
   );
 }
