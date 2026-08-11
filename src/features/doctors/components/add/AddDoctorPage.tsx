@@ -86,6 +86,8 @@ export default function AddDoctorPage({
         console.log("API Update Success:", response);
 
         toast.success("Patient updated successfully");
+
+        
       } else {
         const response = await addDoctor(data as AddDoctorsInput);
 
@@ -149,7 +151,12 @@ export default function AddDoctorPage({
               <UserRoundCheck className="h-6 w-6" />
 
               <span>
-                {isSubmitting ? "Registering..." : "Complete Registration"}
+
+                 {isSubmitting
+                    ? "Saving..."
+                    : isUpdate
+                      ? "Update Doctor"
+                      : "Add Doctor"}
               </span>
             </Button>
           </div>
